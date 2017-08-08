@@ -1,12 +1,13 @@
 package main
 
 import (
-	"encoding/json"
 	"net/http"
+	"time"
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/gorilla/websocket"
-	"github.com/zanetworker/selfservice-backend/models"
+	"github.com/mitchellh/mapstructure"
+	"github.com/zanetworker/son-selfservice/selfservice-backend/models"
 )
 
 //Upgrader to switch protocols
@@ -18,34 +19,74 @@ var upgrader = websocket.Upgrader{
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
+	subscribeToUpdates(conn)
+
 	if err != nil {
 		log.Error(err)
 		return
 	}
 
 	for {
-		messageType, msg, err := conn.ReadMessage()
-		if err != nil {
+		var actionMessage models.Message
+		var outMessage models.Message
+		if err = conn.ReadJSON(&actionMessage); err != nil {
 			log.Error(err)
-			return
+			break
 		}
-		log.Info(messageType, string(msg))
-
-		var actionMessage models.ActionMessage
-		if err = json.Unmarshal(msg, &actionMessage); err != nil {
-			log.Error(err)
-			return
-		}
-
-		log.Infof("%#v\n", actionMessage)
 
 		switch actionMessage.Name {
-		case "fsm add":
-			//TODO contact the communication block to send the command to SSMs
+		case "fsm start":
+			log.Info("Starting FSM")
+			if err = startFSM(actionMessage.Data); err != nil {
+				outMessage = models.Message{
+					Name: "fsm start",
+					Data: models.ErrorMessage{
+						Type:  "error",
+						Value: err.Error(),
+					},
+				}
+				if err = conn.WriteJSON(outMessage); err != nil {
+					log.Error(err)
+					break
+				}
+			}
+			if err = conn.WriteJSON(outMessage); err != nil {
+				log.Error(err)
+				break
+			}
+		case "fsm stop":
+			//TODO add code to stop FSM
 		}
-		if err = conn.WriteMessage(messageType, msg); err != nil {
-			log.Error(err)
-			return
+	}
+}
+
+func startFSM(fsmInputData interface{}) error {
+	var fsmData models.FSMAction
+	if err := mapstructure.Decode(fsmInputData, &fsmData); err != nil {
+		return err
+	}
+	log.Infof("%#v\n", fsmData)
+	return nil
+}
+
+func stopFSM(fsmInputData interface{}) error {
+	//TODO
+	return nil
+}
+
+func subscribeToUpdates(socket *websocket.Conn) {
+	//TODO: rethinkDB Query / changefeed
+	for {
+		time.Sleep(time.Second * 1)
+		messageToSend := models.Message{
+			Name: "fsm update",
+			Data: models.FSMStatusUpdate{
+				ID:    "12345",
+				State: "started",
+			},
+		}
+		if err := socket.WriteJSON(messageToSend); err != nil {
+			log.Error(err.Error())
 		}
 	}
 }

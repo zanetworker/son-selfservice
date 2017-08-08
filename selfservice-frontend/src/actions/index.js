@@ -1,8 +1,7 @@
-import { browserHistory } from 'react-router';
+// import { browserHistory } from 'react-router';
 // import {socket} from '../containers/SSMControl'
 export const ITEMS_FETCH_FSMS = 'ITEMS_FETCH_FSMS'
-
-
+export const UPDATE_FSMS = 'UPDATE_FSMS'
 // export const itemsFetchData = (url) => {
 //
 //   return (dispatch) => {
@@ -24,6 +23,16 @@ export const ITEMS_FETCH_FSMS = 'ITEMS_FETCH_FSMS'
 // }
 
 
+export const updateFsm = (fsmToUpdate) => {
+  console.log("Updateing:" , fsmToUpdate)
+ return (dispatch) => {
+   dispatch({
+      type: UPDATE_FSMS,
+      payload: fsmToUpdate
+    })
+ }
+
+}
 export const fetchFsms = (socket) => {
   return (dispatch) => {
     let msg = {

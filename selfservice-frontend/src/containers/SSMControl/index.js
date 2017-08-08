@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
 import "./SSMControl.css"
-import {fetchFsms} from '../../actions'
+import {fetchFsms, updateFsm} from '../../actions'
 import Socket  from '../../utils/socket'
 
 
@@ -23,7 +23,8 @@ class SSMControl extends Component {
   componentDidMount(){
     socket.on('connect', this.onConnect);
     socket.on('disconnect', this.onDisconnect);
-    socket.on('fsm add', this.onAddFSM);
+    socket.on('fsm started', this.onFSMStarted);
+    socket.on('fsm update', this.onFSMUpdated)
   }
 
   onConnect = () => {
@@ -38,14 +39,18 @@ class SSMControl extends Component {
     });
   }
 
-  onAddFSM = (fsm) => {
-    console.log("Adding FSM");
-    console.log(fsm);
+  onFSMStarted = (fsm) => {
+    console.log("FSM Started")
+  }
+
+  onFSMUpdated =(fsmData) => {
+    const {updateFSMAction} = this.props;
+    updateFSMAction(fsmData);
   }
 
  onActionStart =(socket) => {
    const {itemFetchFsmsAction} = this.props;
-  itemFetchFsmsAction(socket)
+  itemFetchFsmsAction(socket);
   }
 
   onActionStop =(id) => {
@@ -109,6 +114,7 @@ render(){
 // const mapPropsToSto
 const mapDispatchToProps = (dispatch) => ({
   itemFetchFsmsAction:(socket)=> dispatch(fetchFsms(socket)),
+  updateFSMAction: (fsmToUpdate) => dispatch(updateFsm(fsmToUpdate)),
 })
 
 const mapStateToProps = (state) => ({

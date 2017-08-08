@@ -1,12 +1,25 @@
 package models
 
-//ActionMessage is the message for FrontEnd Actions
-type ActionMessage struct {
-	// The fields of this struct must be exported so that the json module will be
-	// able to write into them. Therefore we need field tags to specify the names
-	// by which these fields go in the JSON representation of events.
-	// X int `json:"x"`
-	// Y int `json:"y"`
-	Name string `json:"name"`
-	Data interface{}
+//Message is the message for FrontEnd Actions
+type Message struct {
+	Name string      `json:"name"` //Name of the command e.g., fsm start/stop
+	Data interface{} //Info about the FSM
+}
+
+//FSMAction Information about FSM to start/stop/configure
+type FSMAction struct {
+	ID     string `json:"id"`
+	Action string `json:"action"`
+}
+
+//FSMStatusUpdate update message from ssm
+type FSMStatusUpdate struct {
+	ID    string `json:"id"`
+	State string `json:"state"`
+}
+
+//ErrorMessage Reply about the status of the FMS
+type ErrorMessage struct {
+	Type  string `json:"id"`
+	Value string `json:"value"`
 }
