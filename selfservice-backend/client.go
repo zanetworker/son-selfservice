@@ -2,11 +2,11 @@ package main
 
 import (
 	"math/rand"
-	"time"
 
-	"github.com/gorilla/websocket"
-
+	r "github.com/GoRethink/gorethink"
 	log "github.com/Sirupsen/logrus"
+	"github.com/gorilla/websocket"
+	"github.com/zanetworker/son-selfservice/selfservice-backend/database"
 	"github.com/zanetworker/son-selfservice/selfservice-backend/models"
 )
 
@@ -16,6 +16,7 @@ type FindHandler func(string) (Handler, bool)
 //The Client Struct to communicate with the FE
 type Client struct {
 	socket      *websocket.Conn
+	db          *database.Database
 	send        chan models.Message
 	findHandler FindHandler
 }
@@ -51,8 +52,19 @@ func (client *Client) Read() {
 
 //SubscribeToUpdates test client
 func (client *Client) SubscribeToUpdates() {
-	for {
-		time.Sleep(time.Second * 1)
+	log.Info("Waiting for Database Updates")
+	cursor, err := r.DB("fsms").Table("fsm_psa").Changes(r.ChangesOpts{
+		IncludeInitial: true,
+	}).Run(client.db.Connection)
+
+	if err != nil {
+		log.Error(err.Error())
+		return
+	}
+	var changeResponse r.ChangeResponse
+	for cursor.Next(&changeResponse) {
+		log.Infof("%#v\n", changeResponse)
+
 		states := []string{"started", "stopped"}
 		access := rand.Intn(len(states))
 		messageToSend := models.Message{
@@ -63,14 +75,27 @@ func (client *Client) SubscribeToUpdates() {
 			},
 		}
 		client.send <- messageToSend
+
 	}
 }
 
+// for {
+// 	time.Sleep(time.Second * 1)
+// 	// fsmToInsert := models.FSM{
+// 	//   ID:    "2123123",
+// 	//   Name:  "testGo",
+// 	//   State: "stopped",
+// 	// }
+// 	// db.AddFSM("fsms", "fsm_psa", fsmToInsert)
+
+// }
+
 //NewClient Instantiate a new Client
-func NewClient(socket *websocket.Conn, findHandler FindHandler) *Client {
+func NewClient(socket *websocket.Conn, findHandler FindHandler, db *database.Database) *Client {
 	return &Client{
 		socket:      socket,
 		send:        make(chan models.Message),
 		findHandler: findHandler,
+		db:          db,
 	}
 }

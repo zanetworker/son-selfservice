@@ -4,10 +4,13 @@ import (
 	"net/http"
 
 	log "github.com/Sirupsen/logrus"
+	"github.com/zanetworker/son-selfservice/selfservice-backend/database"
 )
 
 func main() {
-	router := NewRouter()
+	db := database.NewDB()
+	router := NewRouter(db)
+
 	router.Handle("fsm start", StartFSM)
 	http.Handle("/wsecho", router)
 	log.Fatal(http.ListenAndServe(":4000", nil))

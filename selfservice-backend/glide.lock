@@ -1,0 +1,16 @@
+hash: b6193a2868b77e06e9ea678a6edeb7ee33cc1bbca603e4d3144630e8e0fe812e
+updated: 2017-08-09T13:45:51.729309082+02:00
+imports:
+- name: github.com/GoRethink/gorethink
+  version: 7ab832f7b65573104a555d84a27992ae9ea1f659
+- name: github.com/gorilla/websocket
+  version: a69d9f6de432e2c6b296a947d8a5ee88f68522cf
+- name: github.com/mitchellh/mapstructure
+  version: d0303fe809921458f417bcf828397a65db30a7e4
+- name: github.com/Sirupsen/logrus
+  version: a3f95b5c423586578a4e099b11a46c2479628cac
+- name: golang.org/x/sys
+  version: 493114f68206f85e7e333beccfabc11e98cba8dd
+  subpackages:
+  - unix
+testImports: []

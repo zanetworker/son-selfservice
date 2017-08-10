@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/websocket"
+	"github.com/zanetworker/son-selfservice/selfservice-backend/database"
 )
 
 //Handler the function handler type
@@ -19,13 +20,15 @@ var upgrader = websocket.Upgrader{
 
 //Router is the handler we will use
 type Router struct {
-	rules map[string]Handler
+	rules    map[string]Handler
+	database *database.Database
 }
 
 //NewRouter Init for router
-func NewRouter() *Router {
+func NewRouter(db *database.Database) *Router {
 	return &Router{
-		rules: make(map[string]Handler),
+		rules:    make(map[string]Handler),
+		database: db,
 	}
 }
 
@@ -47,7 +50,7 @@ func (router *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, err.Error())
 		return
 	}
-	client := NewClient(conn, router.FindHandler)
+	client := NewClient(conn, router.FindHandler, router.database)
 	go client.Write()
 	go client.SubscribeToUpdates()
 	client.Read()
