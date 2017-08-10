@@ -5,6 +5,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+#glide
+selfservice-backend/vendor
+selfservice-backend/build
+selfservice-backend/docs/_site
+
+
 # Runtime data
 pids
 *.pid
