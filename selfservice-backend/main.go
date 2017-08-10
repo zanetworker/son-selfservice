@@ -12,6 +12,6 @@ func main() {
 	router := NewRouter(db)
 
 	router.Handle("fsm start", StartFSM)
-	http.Handle("/wsecho", router)
+	http.Handle("/frontend", router)
 	log.Fatal(http.ListenAndServe(":4000", nil))
 }

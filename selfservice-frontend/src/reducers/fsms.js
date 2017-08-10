@@ -1,16 +1,16 @@
 import {UPDATE_FSMS} from '../actions'
 
 const INIT_STATE = [
-  {
-      id: "12345",
-      name: "Firewall",
-      state: "stopped"
-  },
-  {
-      id: "2",
-      name: "Loadbalancer",
-      state: "started"
-  }
+  // {
+  //     id: "12345",
+  //     name: "Firewall",
+  //     state: "stopped"
+  // },
+  // {
+  //     id: "2",
+  //     name: "Loadbalancer",
+  //     state: "started"
+  // }
 ];
 
 

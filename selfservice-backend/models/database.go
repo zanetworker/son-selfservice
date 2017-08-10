@@ -2,7 +2,8 @@ package models
 
 //FSM  update message to the database
 type FSM struct {
-	ID    string `gorethink:"fsmId,omitempty"`
+	ID    string `gorethink:"id,omitempty"`
+	FsmID string `gorethink:"fsmId,omitempty"`
 	Name  string `gorethink:"name"`
 	State string `gorethink:"state"`
 }

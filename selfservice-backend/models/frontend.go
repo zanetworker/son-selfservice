@@ -14,7 +14,7 @@ type FSMAction struct {
 
 //FSMStatusUpdate update message from ssm
 type FSMStatusUpdate struct {
-	ID    string `json:"id"`
+	FsmID string `json:"id"`
 	State string `json:"state"`
 }
 

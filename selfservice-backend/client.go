@@ -1,11 +1,10 @@
 package main
 
 import (
-	"math/rand"
-
 	r "github.com/GoRethink/gorethink"
 	log "github.com/Sirupsen/logrus"
 	"github.com/gorilla/websocket"
+	"github.com/mitchellh/mapstructure"
 	"github.com/zanetworker/son-selfservice/selfservice-backend/database"
 	"github.com/zanetworker/son-selfservice/selfservice-backend/models"
 )
@@ -65,30 +64,24 @@ func (client *Client) SubscribeToUpdates() {
 	for cursor.Next(&changeResponse) {
 		log.Infof("%#v\n", changeResponse)
 
-		states := []string{"started", "stopped"}
-		access := rand.Intn(len(states))
+		var newFSMValue models.FSM
+		if err := mapstructure.Decode(changeResponse.NewValue, &newFSMValue); err != nil {
+			log.Error(err.Error())
+			continue
+		}
+		// states := []string{"started", "stopped"}
+		// access := rand.Intn(len(states))
 		messageToSend := models.Message{
 			Name: "fsm update",
 			Data: models.FSMStatusUpdate{
-				ID:    "12345",
-				State: states[access],
+				FsmID: newFSMValue.FsmID,
+				State: newFSMValue.State,
 			},
 		}
 		client.send <- messageToSend
-
 	}
+
 }
-
-// for {
-// 	time.Sleep(time.Second * 1)
-// 	// fsmToInsert := models.FSM{
-// 	//   ID:    "2123123",
-// 	//   Name:  "testGo",
-// 	//   State: "stopped",
-// 	// }
-// 	// db.AddFSM("fsms", "fsm_psa", fsmToInsert)
-
-// }
 
 //NewClient Instantiate a new Client
 func NewClient(socket *websocket.Conn, findHandler FindHandler, db *database.Database) *Client {

@@ -3,13 +3,17 @@ import {connect} from 'react-redux';
 import "./SSMControl.css"
 import {fetchFsms, updateFsm} from '../../actions'
 import Socket  from '../../utils/socket'
+import config from '../../config.json'
 
+console.log(config.websocket_server);
 
-let url = "ws://127.0.0.1:4000/wsecho";
+const ip = config.websocket_server.ip;
+const port = config.websocket_server.port;
+
+let url = "ws://" + ip + ":" + port + "/frontend";
 let ws = new WebSocket(url);
 let socket = new Socket(ws);
 
-export {socket};
 
 class SSMControl extends Component {
 
@@ -99,7 +103,6 @@ render(){
             )}
             <span></span><span></span>
             <button  type="button"className="btn btn-primary" onClick={() => this.onActionResume(fsm.id)}>Resume</button>
-
             </td>
          </tr>
      )}
