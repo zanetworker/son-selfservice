@@ -13,6 +13,11 @@ type Database struct {
 	DBChannel  chan r.ChangeResponse
 }
 
+//DeleteAll deletes all entries in the database
+func (db *Database) DeleteAll(dbName, tableName string) {
+	r.DB(dbName).Table(tableName).Delete().Run(db.Connection)
+}
+
 //AddFSM asdasd
 func (db *Database) AddFSM(dbName, tableName string, dataToAdd interface{}) error {
 	var fsmToAdd models.FSM
@@ -30,20 +35,6 @@ func (db *Database) AddFSM(dbName, tableName string, dataToAdd interface{}) erro
 
 //SubscribeToChanges asdasd
 func (db *Database) SubscribeToChanges(dbName, tableName string) {
-	log.Info("Waiting for Database Updates")
-	cursor, err := r.DB(dbName).Table(tableName).Changes(r.ChangesOpts{
-		IncludeInitial: true,
-	}).Run(db.Connection)
-
-	if err != nil {
-		log.Error(err.Error())
-		return
-	}
-	var changeResponse r.ChangeResponse
-	for cursor.Next(&changeResponse) {
-		log.Infof("%#v\n", changeResponse)
-		db.DBChannel <- changeResponse
-	}
 
 }
 

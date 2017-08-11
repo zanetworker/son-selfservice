@@ -51,7 +51,8 @@ func (router *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	client := NewClient(conn, router.FindHandler, router.database)
+	// router.database.DeleteAll("fsms", "fsm_psa")
 	go client.Write()
 	go client.SubscribeToUpdates()
-	client.Read()
+	go client.Read()
 }

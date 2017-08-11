@@ -40,7 +40,8 @@ func (client *Client) Read() {
 			log.Error(err.Error())
 			break
 		}
-
+		log.Info("action message")
+		log.Infof("%#v\n", actionMessage)
 		command := actionMessage.Name
 		if handler, found := client.findHandler(command); found {
 			handler(client, actionMessage.Data)

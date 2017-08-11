@@ -10,7 +10,7 @@ console.log(config.websocket_server);
 const ip = config.websocket_server.ip;
 const port = config.websocket_server.port;
 
-let url = "ws://" + ip + ":" + port + "/frontend";
+let url = "ws://" + ip + ":" + port + "/ws";
 let ws = new WebSocket(url);
 let socket = new Socket(ws);
 
