@@ -12,6 +12,7 @@ func main() {
 	router := NewRouter(db)
 
 	router.Handle("fsm start", StartFSM)
+	router.Handle("fsm add", AddFSM)
 	router.Handle("fsm update", UpdateFSM)
 	router.Handle("fsm stop", StopFSM)
 
