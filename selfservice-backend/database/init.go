@@ -13,9 +13,9 @@ type Database struct {
 	DBChannel  chan r.ChangeResponse
 }
 
-//DeleteAll deletes all entries in the database
+//DeleteAll deletes all entries in the datq
 func (db *Database) DeleteAll(dbName, tableName string) {
-	r.DB(dbName).Table(tableName).Delete().Run(db.Connection)
+	r.DB(dbName).Table("fsm_psa").Delete().Run(db.Connection)
 }
 
 //AddFSM asdasd
@@ -31,11 +31,6 @@ func (db *Database) AddFSM(dbName, tableName string, dataToAdd interface{}) erro
 	}
 
 	return nil
-}
-
-//SubscribeToChanges asdasd
-func (db *Database) SubscribeToChanges(dbName, tableName string) {
-
 }
 
 //NewDB initialize DB
