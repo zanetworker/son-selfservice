@@ -1,9 +1,9 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
-	log "github.com/Sirupsen/logrus"
 	"github.com/zanetworker/son-selfservice/selfservice-backend/communication"
 	"github.com/zanetworker/son-selfservice/selfservice-backend/database"
 	"github.com/zanetworker/son-selfservice/selfservice-backend/handlers"

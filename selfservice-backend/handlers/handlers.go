@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"fmt"
+	"reflect"
 
 	r "github.com/GoRethink/gorethink"
 	log "github.com/Sirupsen/logrus"
@@ -48,17 +49,36 @@ func StopFSM(client *communication.Client, fsmInputData interface{}) {
 func AddFSMs(client *communication.Client, fsmsInputData interface{}) {
 	log.Info("adding FSMs")
 	var fsms models.FSMs
-	if err := mapstructure.Decode(fsmsInputData, &fsms); err != nil {
-		log.Error(err.Error())
-		return
-	}
 
-	for _, fsm := range fsms.FSMList {
-		err := AddFSM(client.DB.Connection, fsm)
-		if err != nil {
-			log.Error(err.Error())
+	switch reflect.TypeOf(fsmsInputData).Kind() {
+	case reflect.Slice:
+		log.Info("Its a slice")
+		fsmsInputDataValue := reflect.ValueOf(fsmsInputData)
+		// log.Infof("%#v\n", fsmsInputDataValue)
+
+		// if err := mapstructure.Decode(fsmsInputDataValue, &fsms); err != nil {
+		// 	log.Error(err.Error())
+		// 	return
+		// }
+
+		test := fsmsInputDataValue.Interface().([]interface{})
+		for _, vlaue := range test {
+			var fsm models.FSM
+			err := mapstructure.Decode(vlaue, &fsm)
+			if err != nil {
+				log.Error(err.Error())
+			}
+			fsms.FSMList = append(fsms.FSMList, fsm)
+		}
+
+		for _, fsm := range fsms.FSMList {
+			err := AddFSM(client.DB.Connection, fsm)
+			if err != nil {
+				log.Error(err.Error())
+			}
 		}
 	}
+
 }
 
 // //AddFSM adding an FSM

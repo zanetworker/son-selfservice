@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	r "github.com/GoRethink/gorethink"
-	"github.com/prometheus/common/log"
+	log "github.com/Sirupsen/logrus"
 
 	"github.com/zanetworker/son-selfservice/selfservice-backend/models"
 )
