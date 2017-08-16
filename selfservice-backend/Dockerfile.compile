@@ -1,4 +1,0 @@
-from golang:latest
-ENV CGO_ENABLED 0
-ENV GOOS "linux"
-ENV GOPATH "/gopath"

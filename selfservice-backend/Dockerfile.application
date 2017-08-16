@@ -1,3 +1,0 @@
-FROM scratch
-ADD selfservice-backend selfservice-backend
-ENTRYPOINT ["/selfservice-backend"]

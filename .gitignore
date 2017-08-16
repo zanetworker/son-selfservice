@@ -5,6 +5,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+
+#rethinkdb
+rethinkdb_data/
+
 #glide
 selfservice-backend/vendor
 selfservice-backend/build

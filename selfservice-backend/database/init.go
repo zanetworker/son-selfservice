@@ -37,7 +37,7 @@ func (db *Database) AddFSM(dbName, tableName string, dataToAdd interface{}) erro
 func NewDB() *Database {
 	session, err := r.Connect(r.ConnectOpts{
 		//TODO fetch from Config File
-		Address:  "localhost:28015",
+		Address:  "10.5.0.4:28015",
 		Database: "fsms",
 	})
 
