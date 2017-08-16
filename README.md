@@ -6,6 +6,20 @@ Sonata Self-service Application
 ![Architecture](self-service-portal.png?raw=true "Self-service Portal Architecture")
 
 
+### How do I run this?
+You need Docker installed on your machine and... that's it. Build the project:
+
+```bash
+cd selfservice-backend
+chmod +x build.sh
+./build.sh
+```
+
+After you run the build file, go back to the main project directory then run
+
+```bash
+docker-compose up --build 
+```
 # License
 son-selfservice is published under Apache 2.0 license. Please see the LICENSE file for more details.
 
