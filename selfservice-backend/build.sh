@@ -11,5 +11,5 @@ then
   rm -f "$FILE"
 fi
 
-docker run --rm -it -v "$GOPATH":/gopath -e "FILE=$FILE" -v "$(pwd)":/$FILE \
+docker run --rm -it -e "FILE=$FILE" -v "$(pwd)":/$FILE \
   -w "/$FILE" $IMAGE sh -c 'go build -a --installsuffix cgo --ldflags="-s" -o $FILE'

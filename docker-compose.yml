@@ -14,7 +14,9 @@ services:
 
   backend:
     container_name: selfservice-backend
-    build: selfservice-backend/.
+    build:
+      context: selfservice-backend/.
+      dockerfile: Dockerfile.scratch
     ports:
      - "4000:4000"
     networks:
