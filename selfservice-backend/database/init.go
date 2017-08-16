@@ -1,6 +1,8 @@
 package database
 
 import (
+	"fmt"
+
 	r "github.com/GoRethink/gorethink"
 	log "github.com/Sirupsen/logrus"
 	"github.com/mitchellh/mapstructure"
@@ -35,15 +37,28 @@ func (db *Database) AddFSM(dbName, tableName string, dataToAdd interface{}) erro
 
 //NewDB initialize DB
 func NewDB() *Database {
+
 	session, err := r.Connect(r.ConnectOpts{
 		//TODO fetch from Config File
 		Address:  "10.5.0.4:28015",
 		Database: "fsms",
 	})
-
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+
+	resp, err := r.DBCreate("fsms").RunWrite(session)
+	if err != nil {
+		fmt.Print(err)
+	}
+	log.Infof("%d DB created", resp.DBsCreated)
+
+	response, err := r.DB("fsms").TableCreate("fsm_psa").RunWrite(session)
+	if err != nil {
+		log.Errorf("Error creating table: %s", err)
+	}
+
+	log.Infof("%d table created", response.TablesCreated)
 
 	return &Database{
 		Connection: session,

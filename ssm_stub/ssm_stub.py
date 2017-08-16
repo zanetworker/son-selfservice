@@ -15,7 +15,7 @@ def on_open(ws):
     # def run(*args):
     #     for i in range(3):
     #         time.sleep(1)
-    toSend  = {"name": "fsm update", "data": {"fsmId": "1234", "state": "started"}}
+    toSend  = {"name": "fsm add", "data": {"fsmId": "1234", "state": "started"}}
     #
     #     time.sleep(1)
     # toSend  = {"name": "fsm update", "data":
