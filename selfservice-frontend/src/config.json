@@ -1,6 +1,6 @@
 {
   "websocket_server": {
-    "ip": "10.5.0.3",
+    "ip": "selfservice-backend",
     "port": 4000
   }
 }

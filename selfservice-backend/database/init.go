@@ -6,6 +6,7 @@ import (
 	r "github.com/GoRethink/gorethink"
 	log "github.com/Sirupsen/logrus"
 	"github.com/mitchellh/mapstructure"
+	"github.com/zanetworker/son-selfservice/selfservice-backend/configuration"
 	"github.com/zanetworker/son-selfservice/selfservice-backend/models"
 )
 
@@ -38,9 +39,10 @@ func (db *Database) AddFSM(dbName, tableName string, dataToAdd interface{}) erro
 //NewDB initialize DB
 func NewDB() *Database {
 
+	dbURL := configuration.AppConfig.DBHostIP + ":" + configuration.AppConfig.DBHostPort
 	session, err := r.Connect(r.ConnectOpts{
 		//TODO fetch from Config File
-		Address:  "10.5.0.4:28015",
+		Address:  dbURL,
 		Database: "fsms",
 	})
 	if err != nil {

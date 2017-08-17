@@ -47,7 +47,7 @@ func StopFSM(client *communication.Client, fsmInputData interface{}) {
 
 //AddFSMs adds FSMs if they don't exists
 func AddFSMs(client *communication.Client, fsmsInputData interface{}) {
-	log.Info("adding FSMs")
+	log.Info("Adding FSMs")
 	var fsms models.FSMs
 
 	switch reflect.TypeOf(fsmsInputData).Kind() {

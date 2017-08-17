@@ -40,3 +40,8 @@
 2017-08-16T16:54:19.440055470 0.912006s info: Table 739e3937-f9f5-470a-ac12-63dfd0394a71: Starting a new Raft election for term 1.
 2017-08-16T16:54:19.442020767 0.913972s info: Table 739e3937-f9f5-470a-ac12-63dfd0394a71: Added replica on this server.
 2017-08-16T16:54:19.450160157 0.922111s info: Table 739e3937-f9f5-470a-ac12-63dfd0394a71: This server is Raft leader for term 1. Latest log index is 0.
+2017-08-16T16:59:24.290250653 305.763052s notice: Server got SIGTERM from pid 0, uid 0; shutting down...
+2017-08-16T16:59:24.291236302 305.763187s notice: Shutting down client connections...
+2017-08-16T16:59:24.291350326 305.763301s notice: All client connections closed.
+2017-08-16T16:59:24.291359155 305.763309s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-08-16T16:59:24.295049754 305.767000s notice: Storage engine shut down.

@@ -15,15 +15,15 @@ def on_open(ws):
     # def run(*args):
     #     for i in range(3):
     #         time.sleep(1)
-    toSend  = {"name": "fsm add", "data": {"fsmId": "1234", "state": "started"}}
+    # toSend  = {"name": "fsm add", "data": {"fsmId": "1234", "state": "started"}}
     #
     #     time.sleep(1)
-    # toSend  = {"name": "fsm update", "data":
-    # [
-    #     {"name": "test", "fsmId": "2", "state": "stopped"},
-    #     {"name": "test", "fsmId": "3", "state": "stopped"}
-    # ],
-    # }
+    toSend  = {"name": "fsm add", "data":
+    [
+        {"name": "test", "fsmId": "2", "state": "stopped"},
+        {"name": "test", "fsmId": "3", "state": "stopped"}
+    ],
+    }
     toSendJson = json.dumps(toSend)
     ws.send(toSendJson)
     ws.close()
