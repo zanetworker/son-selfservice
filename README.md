@@ -1,3 +1,5 @@
+
+[![Build Status](https://travis-ci.org/zanetworker/son-selfservice.svg?branch=master)](https://travis-ci.org/zanetworker/son-selfservice)
 [![Go Report Card](https://goreportcard.com/badge/github.com/zanetworker/son-selfservice)](https://goreportcard.com/report/github.com/zanetworker/son-selfservice)
 
 # Son-Selfservice
