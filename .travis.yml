@@ -9,7 +9,7 @@ install:
   - docker-compose version
 
 before_script:
-  - chmod +x start_it.sh
+  - chmod +x one_for_all.sh
   - docker-compose -f docker-compose.test.yml -p ci build
   - docker-compose -f docker-compose.test.yml -p ci up -d
 
