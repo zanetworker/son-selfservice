@@ -5,13 +5,12 @@ import (
 	"net/http"
 
 	"github.com/zanetworker/son-selfservice/selfservice-backend/communication"
-	"github.com/zanetworker/son-selfservice/selfservice-backend/configuration"
 	"github.com/zanetworker/son-selfservice/selfservice-backend/database"
 	"github.com/zanetworker/son-selfservice/selfservice-backend/handlers"
 )
 
 func main() {
-	configuration.LoadAppConfig()
+	// configuration.LoadAppConfig()
 
 	db := database.NewDB()
 	router := communication.NewRouter(db)

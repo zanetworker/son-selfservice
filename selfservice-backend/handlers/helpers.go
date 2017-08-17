@@ -25,7 +25,7 @@ func AddFSM(dbConnection *r.Session, fsmToInsert models.FSM) error {
 			log.Errorf("Failed to inser FSM: %s", err.Error())
 			return err
 		}
-		log.Infof("FSM %s was already added to the database", fsmToInsert.FsmID)
+		log.Infof("Added FSM %s  to the database", fsmToInsert.FsmID)
 		return nil
 	}
 	log.Infof("FSM %s was already added to the database", fsmToInsert.FsmID)

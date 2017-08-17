@@ -111,6 +111,9 @@ func UpdateFSM(client *communication.Client, fsmInputData interface{}) {
 	// Scan query result into the person variable
 	var results []interface{}
 	err = res.All(&results)
+	if len(results) == 0 {
+		log.Infof("FSM does not exist in the database")
+	}
 	var fsmResults models.FSM
 	err = mapstructure.Decode(results[0], &fsmResults)
 	if err != nil {

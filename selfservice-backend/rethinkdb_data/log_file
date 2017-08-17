@@ -45,3 +45,55 @@
 2017-08-16T16:59:24.291350326 305.763301s notice: All client connections closed.
 2017-08-16T16:59:24.291359155 305.763309s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
 2017-08-16T16:59:24.295049754 305.767000s notice: Storage engine shut down.
+2017-08-17T09:38:31.493820237 0.129437s notice: Running rethinkdb 2.3.5~0jessie (GCC 4.9.2)...
+2017-08-17T09:38:31.496833276 0.132448s notice: Running on Linux 4.4.0-91-generic x86_64
+2017-08-17T09:38:31.496889342 0.132502s notice: Loading data from directory /data/rethinkdb_data
+2017-08-17T09:38:31.526292026 0.161907s info: Automatically using cache size of 859 MB
+2017-08-17T09:38:31.552933171 0.188546s notice: Listening for intracluster connections on port 29015
+2017-08-17T09:38:31.575728423 0.211342s notice: Listening for client driver connections on port 28015
+2017-08-17T09:38:31.575994726 0.211608s notice: Listening for administrative HTTP connections on port 8080
+2017-08-17T09:38:31.606145065 0.241759s notice: Listening on cluster addresses: 127.0.0.1, 10.5.0.4, ::1, fe80::42:aff:fe05:4%330
+2017-08-17T09:38:31.644131782 0.279745s notice: Listening on driver addresses: 127.0.0.1, 10.5.0.4, ::1, fe80::42:aff:fe05:4%330
+2017-08-17T09:38:31.677735016 0.313348s notice: Listening on http addresses: 127.0.0.1, 10.5.0.4, ::1, fe80::42:aff:fe05:4%330
+2017-08-17T09:38:31.677798712 0.313412s notice: Server ready, "f40a9d05d87a_t4s" 4e255979-1fcf-450f-bdcb-d353718af4e6
+2017-08-17T09:38:32.285641163 0.921254s notice: A newer version of the RethinkDB server is available: 2.3.6. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2017-08-17T09:38:33.422000297 2.057614s info: Table 739e3937-f9f5-470a-ac12-63dfd0394a71: Starting a new Raft election for term 2.
+2017-08-17T09:38:33.431309841 2.066923s info: Table 739e3937-f9f5-470a-ac12-63dfd0394a71: This server is Raft leader for term 2. Latest log index is 3.
+2017-08-17T09:38:47.913118271 16.548732s notice: Server got SIGTERM from pid 0, uid 0; shutting down...
+2017-08-17T09:38:47.913273613 16.548887s notice: Shutting down client connections...
+2017-08-17T09:38:47.913402938 16.549016s notice: All client connections closed.
+2017-08-17T09:38:47.913463971 16.549077s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-08-17T09:38:47.914934968 16.550548s notice: Storage engine shut down.
+2017-08-17T13:28:04.967773957 0.138464s notice: Running rethinkdb 2.3.5~0jessie (GCC 4.9.2)...
+2017-08-17T13:28:04.970157180 0.140848s notice: Running on Linux 4.4.0-91-generic x86_64
+2017-08-17T13:28:04.970233107 0.140920s notice: Loading data from directory /data/rethinkdb_data
+2017-08-17T13:28:04.999994065 0.170682s info: Automatically using cache size of 631 MB
+2017-08-17T13:28:05.033375683 0.204063s notice: Listening for intracluster connections on port 29015
+2017-08-17T13:28:05.058404644 0.229092s notice: Listening for client driver connections on port 28015
+2017-08-17T13:28:05.058727335 0.229415s notice: Listening for administrative HTTP connections on port 8080
+2017-08-17T13:28:05.099971454 0.270659s notice: Listening on cluster addresses: 127.0.0.1, 10.5.0.4, ::1, fe80::42:aff:fe05:4%388
+2017-08-17T13:28:05.139710046 0.310398s notice: Listening on driver addresses: 127.0.0.1, 10.5.0.4, ::1, fe80::42:aff:fe05:4%388
+2017-08-17T13:28:05.173081607 0.343769s notice: Listening on http addresses: 127.0.0.1, 10.5.0.4, ::1, fe80::42:aff:fe05:4%388
+2017-08-17T13:28:05.173145227 0.343832s notice: Server ready, "f40a9d05d87a_t4s" 4e255979-1fcf-450f-bdcb-d353718af4e6
+2017-08-17T13:28:05.787367549 0.958055s notice: A newer version of the RethinkDB server is available: 2.3.6. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2017-08-17T13:28:06.269648247 1.440337s info: Table 739e3937-f9f5-470a-ac12-63dfd0394a71: Starting a new Raft election for term 3.
+2017-08-17T13:28:06.278459219 1.449147s info: Table 739e3937-f9f5-470a-ac12-63dfd0394a71: This server is Raft leader for term 3. Latest log index is 6.
+2017-08-17T13:28:33.681021928 28.851709s notice: Server got SIGTERM from pid 0, uid 0; shutting down...
+2017-08-17T13:28:33.681101546 28.851789s notice: Shutting down client connections...
+2017-08-17T13:28:33.681125123 28.851812s notice: All client connections closed.
+2017-08-17T13:28:33.681126706 28.851814s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-08-17T13:28:33.685841638 28.856529s notice: Storage engine shut down.
+2017-08-17T13:29:15.548626348 0.158276s notice: Running rethinkdb 2.3.5~0jessie (GCC 4.9.2)...
+2017-08-17T13:29:15.551643412 0.161293s notice: Running on Linux 4.4.0-91-generic x86_64
+2017-08-17T13:29:15.551690846 0.161338s notice: Loading data from directory /data/rethinkdb_data
+2017-08-17T13:29:15.574116324 0.183765s info: Automatically using cache size of 632 MB
+2017-08-17T13:29:15.609697662 0.219345s notice: Listening for intracluster connections on port 29015
+2017-08-17T13:29:15.635394759 0.245042s notice: Listening for client driver connections on port 28015
+2017-08-17T13:29:15.636046760 0.245694s notice: Listening for administrative HTTP connections on port 8080
+2017-08-17T13:29:15.665997007 0.275644s notice: Listening on cluster addresses: 127.0.0.1, 10.5.0.4, ::1, fe80::42:aff:fe05:4%396
+2017-08-17T13:29:15.692228738 0.301876s notice: Listening on driver addresses: 127.0.0.1, 10.5.0.4, ::1, fe80::42:aff:fe05:4%396
+2017-08-17T13:29:15.725343555 0.334991s notice: Listening on http addresses: 127.0.0.1, 10.5.0.4, ::1, fe80::42:aff:fe05:4%396
+2017-08-17T13:29:15.725398233 0.335045s notice: Server ready, "f40a9d05d87a_t4s" 4e255979-1fcf-450f-bdcb-d353718af4e6
+2017-08-17T13:29:16.297871028 0.907518s notice: A newer version of the RethinkDB server is available: 2.3.6. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2017-08-17T13:29:17.409796435 2.019444s info: Table 739e3937-f9f5-470a-ac12-63dfd0394a71: Starting a new Raft election for term 4.
+2017-08-17T13:29:17.419000037 2.028648s info: Table 739e3937-f9f5-470a-ac12-63dfd0394a71: This server is Raft leader for term 4. Latest log index is 9.
