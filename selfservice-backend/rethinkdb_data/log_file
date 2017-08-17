@@ -97,3 +97,8 @@
 2017-08-17T13:29:16.297871028 0.907518s notice: A newer version of the RethinkDB server is available: 2.3.6. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
 2017-08-17T13:29:17.409796435 2.019444s info: Table 739e3937-f9f5-470a-ac12-63dfd0394a71: Starting a new Raft election for term 4.
 2017-08-17T13:29:17.419000037 2.028648s info: Table 739e3937-f9f5-470a-ac12-63dfd0394a71: This server is Raft leader for term 4. Latest log index is 9.
+2017-08-17T14:37:05.114287346 4069.723935s notice: Server got SIGTERM from pid 0, uid 0; shutting down...
+2017-08-17T14:37:05.114407763 4069.724055s notice: Shutting down client connections...
+2017-08-17T14:37:05.114516831 4069.724164s notice: All client connections closed.
+2017-08-17T14:37:05.114574979 4069.724223s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-08-17T14:37:05.120064395 4069.729712s notice: Storage engine shut down.
