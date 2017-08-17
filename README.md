@@ -5,6 +5,7 @@
 # Son-Selfservice
 Son-Selfservice is an independent sonata app that allows you to manage the state of FSMs and SSMs through a user interface.
 
+![Selfservice](selfservice_portal.png?raw=true "Self-service Portal Architecture")
 
 ### Architecture
 ![Architecture](self-service-portal.png?raw=true "Self-service Portal Architecture")
