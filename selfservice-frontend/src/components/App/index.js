@@ -3,7 +3,7 @@ import  {Link} from 'react-router';
 import sonataLogo from './sonata.png';
 import './App.css';
 
-// https://5g-ppp.eu/wp-content/uploads/2015/03/SONATA-new.png
+
 class App extends Component {
 
   render() {
@@ -13,8 +13,7 @@ class App extends Component {
         <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
-
-        <a className="navbar-brand" href="/"> <img src={sonataLogo}
+        <a className="navbar-brand" href="/"> <img src="https://5g-ppp.eu/wp-content/uploads/2015/03/SONATA-new.png"
                alt="Sonata Logo"
                className="navbar-img"/></a>
 

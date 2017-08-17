@@ -6,3 +6,4 @@ import:
 - package: github.com/mitchellh/mapstructure
 - package: github.com/GoRethink/gorethink
   version: ^3.0.2
+- package: github.com/gojp/goreportcard

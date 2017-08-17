@@ -1,3 +1,4 @@
+[![Go Report Card](https://goreportcard.com/report/github.com/zanetworker/son-selfservice](https://goreportcard.com/report/github.com/zanetworker/son-selfservice)
 
 ## Dependencies
 package: github.com/zanetworker/son-selfservice/selfservice-backend

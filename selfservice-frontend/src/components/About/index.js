@@ -5,7 +5,7 @@ class About extends Component {
 
 render(){
   return(
-<p>hello</p>
+<p>This is the sonata self-service application, you can use it to manage FSMs and SSMs in ther service platform</p>
   );
 }
 }
