@@ -1,4 +1,6 @@
-# son-selfservice
+[![Go Report Card](https://goreportcard.com/badge/github.com/zanetworker/son-selfservice)](https://goreportcard.com/report/github.com/zanetworker/son-selfservice)
+
+# Son-Selfservice
 Sonata Self-service Application
 
 
@@ -18,7 +20,7 @@ chmod +x build.sh
 After you run the build file, go back to the main project directory then run
 
 ```bash
-docker-compose up --build 
+docker-compose up --build
 ```
 # License
 son-selfservice is published under Apache 2.0 license. Please see the LICENSE file for more details.
