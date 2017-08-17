@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import  {Link} from 'react-router';
-import sonataLogo from './sonata.png';
+// import sonataLogo from './sonata.png';
 import './App.css';
 
 
