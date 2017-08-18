@@ -12,7 +12,7 @@ Son-Selfservice is an independent sonata app that allows you to manage the state
 
 
 ### How do I run this?
-You need Docker installed on your machine and... that's it. Build the project:
+You need Docker >= v17.03.1-ce installed on your machine as well as Docker Compose >= v1.11.2  and... that's it. Build the project:
 
 ```bash
 chmod +x one_for_all.sh
