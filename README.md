@@ -22,9 +22,9 @@ chmod +x one_for_all.sh
 ### Test functionality
 In addition to the selfservice application code, there is also a stub SSM, implementation that currently does nothing except populate a list of FSMs which should be similar to what the actual SSM would handle it.
 
-To test it, you need to have python (>= Python 2.7.11) installed. Then simply do the following:
+To test it, you need to have Python (v2.7) installed. Then simply do the following:
 
-```bash 
+```bash
 cd ssm_stub
 python ssm_stub.py
 ```
