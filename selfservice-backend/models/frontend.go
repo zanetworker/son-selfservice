@@ -8,14 +8,15 @@ type Message struct {
 
 //FSMAction Information about FSM to start/stop/configure
 type FSMAction struct {
-	ID     string `json:"id"`
-	Action string `json:"action"`
+	ID   string `json:"id"`
+	Name string `json:"name"`
 }
 
 //FSMStatusUpdate update message from ssm
 type FSMStatusUpdate struct {
-	FsmID string `json:"id"`
-	State string `json:"state"`
+	FsmID   string `json:"id"`
+	FsmName string `json:"name"`
+	State   string `json:"state"`
 }
 
 //ErrorMessage Reply about the status of the FMS

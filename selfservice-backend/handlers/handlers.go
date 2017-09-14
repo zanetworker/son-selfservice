@@ -2,10 +2,12 @@ package handlers
 
 import (
 	"fmt"
+	"net/url"
 	"reflect"
 
 	r "github.com/GoRethink/gorethink"
 	log "github.com/Sirupsen/logrus"
+	"github.com/gorilla/websocket"
 	"github.com/mitchellh/mapstructure"
 	"github.com/zanetworker/son-selfservice/selfservice-backend/communication"
 	"github.com/zanetworker/son-selfservice/selfservice-backend/models"
@@ -14,14 +16,33 @@ import (
 //StartFSM command to send the SSM to start a specific FSM
 func StartFSM(client *communication.Client, fsmInputData interface{}) {
 	var fsmData models.FSMAction
-	var fsmDataReply models.Message
+	var fsmDataRequest, fsmDataReply models.Message
 	if err := mapstructure.Decode(fsmInputData, &fsmData); err != nil {
 		log.Error(err)
 	}
 
+	fsmDataRequest.Name = "fsm start"
+	fsmDataRequest.Data = fsmData
+
+	//Initiate the websocket connection
+	u := url.URL{Scheme: "ws", Host: "localhost:1234", Path: "/echo"}
+	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
+	if err != nil {
+		log.Error("Failded to Connect to SSM!")
+	}
+	defer c.Close()
+
+	err = c.WriteJSON(fsmDataRequest)
+	if err != nil {
+		log.Println("write:", err)
+		return
+	}
+
+	err = c.ReadJSON(&fsmDataReply)
+	if err != nil {
+	}
 	//TODO send command to the SSM
-	fsmDataReply.Name = "fsm start"
-	fsmDataReply.Data = fsmData
+
 	client.Send <- fsmDataReply
 
 	log.Infof("%#v\n", fsmData)

@@ -1,40 +1,104 @@
-import websocket, json
+import websocket
 import thread
 import time
 
-def on_message(ws, message):
-    print(message)
+from threading import Thread
+from websocket_server import WebsocketServer
+from json import loads, dumps
 
-def on_error(ws, error):
-    print(error)
+class Server:
+    # Called for every client connecting (after handshake)
+    def new_client(self, client, server):
+    	print("New client connected and was given id %d" % client['id'])
+    	server.send_message_to_all("Hey all, a new client has joined us")
 
-def on_close(ws):
-    print("### closed ###")
 
-def on_open(ws):
-    # def run(*args):
-    #     for i in range(3):
-    #         time.sleep(1)
-    # toSend  = {"name": "fsm add", "data": {"fsmId": "1234", "state": "started"}}
-    #
-    #     time.sleep(1)
-    toSend  = {"name": "fsm add", "data":
-    [
-        {"name": "test", "fsmId": "2", "state": "stopped"},
-        {"name": "test", "fsmId": "3", "state": "stopped"}
-    ],
-    }
-    toSendJson = json.dumps(toSend)
-    ws.send(toSendJson)
-    ws.close()
-    print("thread terminating...")
-    # thread.start_new_thread(run, ())
+    # Called for every client disconnecting
+    def client_left(self, client, server):
+    	print("Client(%d) disconnected" % client['id'])
+
+
+    # Called when a client sends a message
+    def message_received(self, client, server, message):
+    	if len(message) > 200:
+    		message = message[:200]+'..'
+    	print("Client(%d) said: %s" % (client['id'], message))
+
+        # Format message
+        messageDict = loads(message)
+        def receiveMessage():
+            fsmName = messageDict['Data']['name']
+            fsmID = messageDict['Data']['id']
+
+            #TODO relay request on queue and wait for response
+            print(fsmName+ fsmID)
+
+        def sendMessage():
+            print("Sending Message")
+            toSend  = {"name": "fsm start", "Data": {
+                "name": "Firewall",
+                "id": "1"
+                }
+            }
+
+            try:
+                toSendJson = dumps(toSend)
+                server.send_message(client, toSendJson)
+            except Exception, e:
+                print(e.printstacktrace())
+
+        receiveMessage()
+        sendMessage()
+
+
+    def listenToFSMRequests(self):
+        PORT=1234
+        server = WebsocketServer(PORT)
+        server.set_fn_new_client(self.new_client)
+        server.set_fn_client_left(self.client_left)
+        server.set_fn_message_received(self.message_received)
+        server.run_forever()
+
+class Client:
+    def on_message(self, ws, message):
+        print(message)
+
+    def on_error(self, ws, error):
+        print(error)
+
+    def on_close(self, ws):
+        print("### closed ###")
+
+    def on_open(self, ws):
+
+        ##TODO replace toSend with real reply within the SSM
+        toSend  = {"name": "fsm add", "data":
+        [
+            {"name": "Firewall", "fsmId": "1", "state": "stopped"},
+            {"name": "VPN", "fsmId": "2", "state": "started"},
+            {"name": "TOR", "fsmId": "3", "state": "started"},
+            {"name": "HTTP Proxy", "fsmId": "4", "state": "started"},
+            {"name": "IDS", "fsmId": "5", "state": "stopped"}
+        ],
+        }
+        toSendJson = dumps(toSend)
+        ws.send(toSendJson)
+        ws.close()
+
+    def advertiseFSMs(self):
+        websocket.enableTrace(True)
+        ws = websocket.WebSocketApp("ws://localhost:4000/ws",
+                                  on_message = self.on_message,
+                                  on_error = self.on_error,
+                                  on_close = self.on_close)
+        ws.on_open = self.on_open
+        ws.run_forever()
+
 
 if __name__ == "__main__":
-    websocket.enableTrace(True)
-    ws = websocket.WebSocketApp("ws://localhost:4000/ws",
-                              on_message = on_message,
-                              on_error = on_error,
-                              on_close = on_close)
-    ws.on_open = on_open
-    ws.run_forever()
+
+    client = Client()
+    server = Server()
+
+    Thread(target = client.advertiseFSMs()).start()
+    Thread(target = server.listenToFSMRequests()).start()

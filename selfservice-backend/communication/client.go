@@ -73,8 +73,9 @@ func (client *Client) SubscribeToUpdates() {
 		messageToSend := models.Message{
 			Name: "fsm update",
 			Data: models.FSMStatusUpdate{
-				FsmID: newFSMValue.FsmID,
-				State: newFSMValue.State,
+				FsmID:   newFSMValue.FsmID,
+				FsmName: newFSMValue.Name,
+				State:   newFSMValue.State,
 			},
 		}
 		client.Send <- messageToSend

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
 import "./SSMControl.css"
-import {fetchFsms, updateFsm} from '../../actions'
+import {doFSMStart, doFSMStop,  updateFsm} from '../../actions'
 import Socket  from '../../utils/socket'
 import config from '../../config.json'
 
@@ -16,12 +16,16 @@ let socket = new Socket(ws);
 
 
 class SSMControl extends Component {
-
   constructor(props){
     super(props);
     this.state = {
       connected: false,
+      nameToStart: "",
     }
+  }
+
+  handleClick = (name) => {
+    console.log(name)
   }
 
   componentDidMount(){
@@ -52,22 +56,23 @@ class SSMControl extends Component {
     updateFSMAction(fsmData);
   }
 
- onActionStart =(socket) => {
-   const {itemFetchFsmsAction} = this.props;
-  itemFetchFsmsAction(socket);
+ onActionStart = (socket, fsmToStart, fsmID) => {
+   const {doFSMStart} = this.props;
+   doFSMStart(socket, fsmToStart, fsmID);
   }
 
-  onActionStop =(id) => {
-    console.log(id);
+  onActionStop =(socket, fsmToStop, fsmID) => {
+    const {doFSMStop} = this.props;
+    doFSMStop(socket, fsmToStop, fsmID);
   }
 
   onActionResume =(id) => {
+    //TODO
     console.log(id)
   }
 
 render(){
   const {fsms} = this.props;
-
   return(
     <div>
       <legend> SSM Information & Control </legend>
@@ -89,17 +94,20 @@ render(){
            <td>{fsm.name}</td>
            <td>{fsm.state}</td>
            <td className="buttons-sep insert-margin">
-           {fsm.state ===  "started" ? (
-            <button type="button" className="btn btn-success disabled" onClick={() => this.onActionStart(this.state.socket)}>Start</button>
+           {
+             fsm.state ===  "started" ? (
+            <button type="button" className="btn btn-success disabled" onClick={() => {
+              this.onActionStart(socket, fsm.name, fsm.id)
+              console.log(fsm.id)}}>Start</button>
             ):(
-            <button  type="button" className="btn btn-success" onClick={() => this.onActionStart(socket)}>Start</button>
+            <button  type="button" className="btn btn-success" onClick={() => this.onActionStart(socket, fsm.name, fsm.id)}>Start</button>
            )}
 
             <span></span><span></span>
             {fsm.state ===  "stopped" ? (
-              <button type="button" className="btn btn-danger disabled" onClick={() => this.onActionStop(fsm.id)}>Stop</button>
+              <button type="button" className="btn btn-danger disabled" onClick={() => this.onActionStop(socket, fsm.name, fsm.id)}>Stop</button>
              ):(
-             <button  type="button" className="btn btn-danger" onClick={() => this.onActionStop(fsm.id)}>Stop</button>
+             <button  type="button" className="btn btn-danger" onClick={() => this.onActionStop(socket, fsm.name, fsm.id)}>Stop</button>
             )}
             <span></span><span></span>
             <button  type="button"className="btn btn-primary" onClick={() => this.onActionResume(fsm.id)}>Resume</button>
@@ -116,7 +124,8 @@ render(){
 
 // const mapPropsToSto
 const mapDispatchToProps = (dispatch) => ({
-  itemFetchFsmsAction:(socket)=> dispatch(fetchFsms(socket)),
+  doFSMStart:(socket, fsmToStart, fsmID)=> dispatch(doFSMStart(socket, fsmToStart, fsmID)),
+  doFSMStop:(socket, fsmToStop, fsmID)=> dispatch(doFSMStop(socket, fsmToStop, fsmID)),
   updateFSMAction: (fsmToUpdate) => dispatch(updateFsm(fsmToUpdate)),
 })
 

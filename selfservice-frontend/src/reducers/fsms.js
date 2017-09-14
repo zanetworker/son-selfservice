@@ -1,17 +1,12 @@
 import {UPDATE_FSMS} from '../actions'
 
-const INIT_STATE = [
-  // {
-  //     id: "12345",
-  //     name: "Firewall",
-  //     state: "stopped"
-  // },
-  // {
-  //     id: "2",
-  //     name: "Loadbalancer",
-  //     state: "started"
-  // }
-];
+//e.g., state
+// {
+//     id: "12345",
+//     name: "Firewall",
+//     state: "stopped"
+// }
+const INIT_STATE = [];
 
 
 
@@ -32,7 +27,7 @@ export default (state = INIT_STATE, action) => {
 const createStateObject= (dataForObject) => {
   return {
       id: dataForObject.id,
-      name: "Firewall",
+      name: dataForObject.name,
       state: dataForObject.state
   }
 }

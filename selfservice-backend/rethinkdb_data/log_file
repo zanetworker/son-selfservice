@@ -102,3 +102,8 @@
 2017-08-17T14:37:05.114516831 4069.724164s notice: All client connections closed.
 2017-08-17T14:37:05.114574979 4069.724223s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
 2017-08-17T14:37:05.120064395 4069.729712s notice: Storage engine shut down.
+2017-08-25T13:49:01.522830880 0.042266s notice: Running rethinkdb 2.3.5~0xenial (GCC 5.3.1)...
+2017-08-25T13:49:01.530942729 0.050380s notice: Running on Linux 4.4.0-92-generic x86_64
+2017-08-25T13:49:01.531181634 0.050617s notice: Loading data from directory /home/zanetworker/work/src/github.com/zanetworker/son-selfservice/selfservice-backend/rethinkdb_data
+2017-08-25T13:49:01.583179786 0.102614s info: Automatically using cache size of 1783 MB
+2017-08-25T13:49:01.583672701 0.103107s error: TCP socket creation failed for port 29015: Address already in use.
