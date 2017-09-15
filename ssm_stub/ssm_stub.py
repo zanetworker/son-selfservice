@@ -93,7 +93,7 @@ class Client:
 
     def advertiseFSMs(self):
         websocket.enableTrace(True)
-        ws = websocket.WebSocketApp("ws://localhost:4000/ws",
+        ws = websocket.WebSocketApp("ws://selfservice-backend:4000/ws",
                                   on_message = self.on_message,
                                   on_error = self.on_error,
                                   on_close = self.on_close)

@@ -38,14 +38,17 @@ services:
       sonselfservice:
         ipv4_address: 10.5.0.4
 
-    ssmstub:
-      container_name: selfservice-ssm
-      build: ssm_stub/.
-      ports:
-       - "1234:1234"
-      networks:
-        sonselfservice:
-          ipv4_address: 10.5.0.5
+  ssmstub:
+    container_name: selfservice-ssm
+    build: ssm_stub/.
+    ports:
+     - "1234:1234"
+    networks:
+      sonselfservice:
+        ipv4_address: 10.5.0.5
+    depends_on:
+     - backend
+
 
 networks:
   sonselfservice:
