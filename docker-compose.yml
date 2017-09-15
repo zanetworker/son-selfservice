@@ -38,6 +38,19 @@ services:
       sonselfservice:
         ipv4_address: 10.5.0.4
 
+    ssmstub:
+      container_name: selfservice-ssm
+      image: rethinkdb:latest
+      ports:
+       - "8080:8080"
+       - "28015:28015"
+       - "29015:29015"
+      volumes:
+        - "$PWD:/data"
+      networks:
+        sonselfservice:
+          ipv4_address: 10.5.0.4
+
 networks:
   sonselfservice:
     driver: bridge
