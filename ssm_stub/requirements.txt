@@ -1,0 +1,2 @@
+websocket_server==0.4
+websocket_client==0.44.0

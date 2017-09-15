@@ -41,6 +41,7 @@ class Server:
                 }
             }
 
+    
             try:
                 toSendJson = dumps(toSend)
                 server.send_message(client, toSendJson)
