@@ -32,7 +32,6 @@ export const updateFsm = (fsmToUpdate) => {
       payload: fsmToUpdate
     })
  }
-
 }
 export const doFSMStart = (socket, fsmToStart, fsmID) => {
   return (dispatch) => {

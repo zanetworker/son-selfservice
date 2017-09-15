@@ -6,6 +6,12 @@ type Message struct {
 	Data interface{} //Info about the FSM
 }
 
+//ReplyMessage is the message for FrontEnd Actions
+type ReplyMessage struct {
+	Name string      `json:"name"` //Name of the command e.g., fsm start/stop
+	Data interface{} `json:"Data"` //Info about the FSM
+}
+
 //FSMAction Information about FSM to start/stop/configure
 type FSMAction struct {
 	ID   string `json:"id"`

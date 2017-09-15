@@ -16,7 +16,9 @@ import (
 //StartFSM command to send the SSM to start a specific FSM
 func StartFSM(client *communication.Client, fsmInputData interface{}) {
 	var fsmData models.FSMAction
-	var fsmDataRequest, fsmDataReply models.Message
+	var fsmDataRequest models.Message
+	var fsmDataReply models.Message
+
 	if err := mapstructure.Decode(fsmInputData, &fsmData); err != nil {
 		log.Error(err)
 	}
@@ -38,32 +40,55 @@ func StartFSM(client *communication.Client, fsmInputData interface{}) {
 		return
 	}
 
+	log.Info("Reading Reply...!")
 	err = c.ReadJSON(&fsmDataReply)
 	if err != nil {
+		log.Println("Read:", err)
+		return
 	}
-	//TODO send command to the SSM
 
+	log.Info(fsmDataReply)
 	client.Send <- fsmDataReply
-
-	log.Infof("%#v\n", fsmData)
-	log.Info("started FSM")
+	log.Info("Started FSM")
 }
 
 //StopFSM command to send the SSM to stop a specific FSM
 func StopFSM(client *communication.Client, fsmInputData interface{}) {
 	var fsmData models.FSMAction
+	var fsmDataRequest models.Message
 	var fsmDataReply models.Message
+
 	if err := mapstructure.Decode(fsmInputData, &fsmData); err != nil {
 		log.Error(err)
 	}
 
-	//TODO send command to the SSM
-	fsmDataReply.Name = "fsm stop"
-	fsmDataReply.Data = fsmData
-	client.Send <- fsmDataReply
+	fsmDataRequest.Name = "fsm stop"
+	fsmDataRequest.Data = fsmData
 
-	log.Infof("%#v\n", fsmData)
-	log.Info("started FSM")
+	//Initiate the websocket connection
+	u := url.URL{Scheme: "ws", Host: "localhost:1234", Path: "/echo"}
+	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
+	if err != nil {
+		log.Error("Failded to Connect to SSM!")
+	}
+	defer c.Close()
+
+	err = c.WriteJSON(fsmDataRequest)
+	if err != nil {
+		log.Println("write:", err)
+		return
+	}
+
+	log.Info("Reading Reply...!")
+	err = c.ReadJSON(&fsmDataReply)
+	if err != nil {
+		log.Println("Read:", err)
+		return
+	}
+
+	log.Info(fsmDataReply)
+	client.Send <- fsmDataReply
+	log.Info("Stopped FSM")
 }
 
 //AddFSMs adds FSMs if they don't exists

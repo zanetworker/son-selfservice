@@ -10,8 +10,6 @@ class Server:
     # Called for every client connecting (after handshake)
     def new_client(self, client, server):
     	print("New client connected and was given id %d" % client['id'])
-    	server.send_message_to_all("Hey all, a new client has joined us")
-
 
     # Called for every client disconnecting
     def client_left(self, client, server):
@@ -26,29 +24,36 @@ class Server:
 
         # Format message
         messageDict = loads(message)
-        def receiveMessage():
-            fsmName = messageDict['Data']['name']
-            fsmID = messageDict['Data']['id']
+        actionName = messageDict['name']
+        fsmName = messageDict['Data']['name']
+        fsmID = messageDict['Data']['id']
 
-            #TODO relay request on queue and wait for response
-            print(fsmName+ fsmID)
-
+        #TODO relay request on queue and wait for response
+        print(fsmName + fsmID)
         def sendMessage():
             print("Sending Message")
-            toSend  = {"name": "fsm start", "Data": {
-                "name": "Firewall",
-                "id": "1"
+            toSend = None
+            if actionName == "fsm start":
+                toSend  = {"name": actionName, "Data": {
+                    "name": fsmName,
+                    "id": fsmID,
+                    "state": "started"
+                    }
                 }
-            }
-
-    
+            else:
+                toSend  = {"name": actionName, "Data": {
+                    "name": fsmName,
+                    "id": fsmID,
+                    "state": "stopped"
+                    }
+                }
             try:
                 toSendJson = dumps(toSend)
+                print toSendJson
                 server.send_message(client, toSendJson)
             except Exception, e:
-                print(e.printstacktrace())
+                print str(e)
 
-        receiveMessage()
         sendMessage()
 
 

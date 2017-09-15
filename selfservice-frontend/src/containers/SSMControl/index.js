@@ -31,7 +31,8 @@ class SSMControl extends Component {
   componentDidMount(){
     socket.on('connect', this.onConnect);
     socket.on('disconnect', this.onDisconnect);
-    socket.on('fsm started', this.onFSMStarted);
+    socket.on('fsm start', this.onFSMStarted);
+    socket.on('fsm stop', this.onFSMStopped);
     socket.on('fsm update', this.onFSMUpdated)
   }
 
@@ -47,8 +48,17 @@ class SSMControl extends Component {
     });
   }
 
-  onFSMStarted = (fsm) => {
+  onFSMStarted = (fsmData) => {
     console.log("FSM Started")
+    const {updateFSMAction} = this.props;
+    updateFSMAction(fsmData);
+  }
+
+
+  onFSMStopped = (fsmData) => {
+    console.log("FSM Stopped")
+    const {updateFSMAction} = this.props;
+    updateFSMAction(fsmData);
   }
 
   onFSMUpdated =(fsmData) => {
@@ -96,9 +106,7 @@ render(){
            <td className="buttons-sep insert-margin">
            {
              fsm.state ===  "started" ? (
-            <button type="button" className="btn btn-success disabled" onClick={() => {
-              this.onActionStart(socket, fsm.name, fsm.id)
-              console.log(fsm.id)}}>Start</button>
+            <button type="button" className="btn btn-success disabled" onClick={() => this.onActionStart(socket, fsm.name, fsm.id)}>Start</button>
             ):(
             <button  type="button" className="btn btn-success" onClick={() => this.onActionStart(socket, fsm.name, fsm.id)}>Start</button>
            )}

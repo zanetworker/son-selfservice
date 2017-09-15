@@ -11,7 +11,7 @@ import (
 
 //AddFSM adding an FSM
 func AddFSM(dbConnection *r.Session, fsmToInsert models.FSM) error {
-	log.Info("iDDD", fsmToInsert.ID)
+	log.Info("Adding FSM", fsmToInsert.ID)
 	res, err := r.DB("fsms").Table("fsm_psa").Filter(map[string]interface{}{
 		"fsmId": fsmToInsert.FsmID,
 	}).Run(dbConnection)
