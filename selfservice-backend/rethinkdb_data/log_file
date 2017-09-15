@@ -192,3 +192,22 @@
 2017-09-15T16:08:22.875953718 249.920112s notice: All client connections closed.
 2017-09-15T16:08:22.875989239 249.920147s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
 2017-09-15T16:08:22.882228602 249.926388s notice: Storage engine shut down.
+2017-09-15T16:19:37.928628904 0.145060s notice: Running rethinkdb 2.3.5~0jessie (GCC 4.9.2)...
+2017-09-15T16:19:37.937446155 0.153876s notice: Running on Linux 4.4.0-93-generic x86_64
+2017-09-15T16:19:37.937985370 0.154414s notice: Loading data from directory /data/rethinkdb_data
+2017-09-15T16:19:37.972464234 0.188894s info: Automatically using cache size of 826 MB
+2017-09-15T16:19:38.018500223 0.234929s notice: Listening for intracluster connections on port 29015
+2017-09-15T16:19:38.047626640 0.264055s notice: Listening for client driver connections on port 28015
+2017-09-15T16:19:38.047909799 0.264338s notice: Listening for administrative HTTP connections on port 8080
+2017-09-15T16:19:38.074416492 0.290845s notice: Listening on cluster addresses: 127.0.0.1, 10.5.0.4, ::1, fe80::42:aff:fe05:4%106
+2017-09-15T16:19:38.095122553 0.311551s notice: Listening on driver addresses: 127.0.0.1, 10.5.0.4, ::1, fe80::42:aff:fe05:4%106
+2017-09-15T16:19:38.119268998 0.335697s notice: Listening on http addresses: 127.0.0.1, 10.5.0.4, ::1, fe80::42:aff:fe05:4%106
+2017-09-15T16:19:38.119338178 0.335766s notice: Server ready, "f40a9d05d87a_t4s" 4e255979-1fcf-450f-bdcb-d353718af4e6
+2017-09-15T16:19:38.687246942 0.903676s notice: A newer version of the RethinkDB server is available: 2.3.6. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2017-09-15T16:19:39.775763796 1.992192s info: Table 739e3937-f9f5-470a-ac12-63dfd0394a71: Starting a new Raft election for term 10.
+2017-09-15T16:19:39.878519917 2.094948s info: Table 739e3937-f9f5-470a-ac12-63dfd0394a71: This server is Raft leader for term 10. Latest log index is 27.
+2017-09-15T16:20:32.802765036 55.019193s notice: Server got SIGTERM from pid 0, uid 0; shutting down...
+2017-09-15T16:20:32.802846257 55.019274s notice: Shutting down client connections...
+2017-09-15T16:20:32.802915433 55.019344s notice: All client connections closed.
+2017-09-15T16:20:32.802918509 55.019346s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-09-15T16:20:32.809007252 55.025436s notice: Storage engine shut down.
