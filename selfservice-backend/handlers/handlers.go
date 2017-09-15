@@ -66,7 +66,7 @@ func StopFSM(client *communication.Client, fsmInputData interface{}) {
 	fsmDataRequest.Data = fsmData
 
 	//Initiate the websocket connection
-	u := url.URL{Scheme: "ws", Host: "localhost:1234", Path: "/echo"}
+	u := url.URL{Scheme: "ws", Host: "selfservice-ssm:1234", Path: "/echo"}
 	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
 		log.Error("Failded to Connect to SSM!")

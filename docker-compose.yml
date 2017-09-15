@@ -40,9 +40,9 @@ services:
 
     ssmstub:
       container_name: selfservice-ssm
-      image: rethinkdb:latest
+      image:
       ports:
-       - "8080:8080"
+       - "1234:1234"
        - "28015:28015"
        - "29015:29015"
       volumes:
