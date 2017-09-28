@@ -20,13 +20,13 @@ class Socket {
   }
 
   emit(messageToSend){
-    console.log("Sending Message")
+    console.log("Socket Sending Message...!")
     this.ws.send(JSON.stringify(messageToSend));
   }
 
   message(e){
     try{
-      console.log("Received Message")
+      console.log("Received Message!")
       console.log(e.data)
       const message = JSON.parse(e.data);
       this.ee.emit(message.name, message.Data);

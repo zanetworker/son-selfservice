@@ -7,16 +7,15 @@ import {UPDATE_FSMS_BASIC, UPDATE_FSMS_ANON} from '../actions'
 // }
 const INIT_STATE = {
   basic:[
-    {name: "Firewall",      "id": "1", state: "stopped"},
-    {"name": "VPN",         "id": "2", "state": "stopped"},
-    {"name": "TOR",         "id": "3", "state": "stopped"},
+    {"name": "Firewall",      "id": "1", "state": "stopped"},
+    {"name": "VPN",           "id": "2", "state": "stopped"},
   ],
   anon:[
-    {name: "Firewall",      "id": "1", state: "stopped"},
-    {"name": "VPN",         "id": "2", "state": "stopped"},
-    {"name": "TOR",         "id": "3", "state": "stopped"},
-    {"name": "HTTP Proxy",  "id": "4", "state": "stopped"},
-    {"name": "IDS",         "id": "5", "state": "stopped"}
+    {"name": "Firewall",      "id": "1", "state": "stopped"},
+    {"name": "VPN",           "id": "2", "state": "stopped"},
+    {"name": "TOR",           "id": "3", "state": "stopped"},
+    {"name": "HTTP Proxy",    "id": "4", "state": "stopped"},
+    {"name": "IDS",           "id": "5", "state": "stopped"}
   ]
 };
 
@@ -25,10 +24,11 @@ const INIT_STATE = {
 export default (state = INIT_STATE, action) => {
   switch (action.type){
     case UPDATE_FSMS_BASIC:
+    console.log("[reducer] update fsms basic" +action.payload)
       const stateToReturnBasic = {
         basic:
           state.basic.filter((fsm)=>{
-          return fsm.id !== action.payload.id
+            return fsm.id !== action.payload.id
       })
     }
       stateToReturnBasic.basic.push(createStateObjectBasic(action.payload))
@@ -47,11 +47,13 @@ export default (state = INIT_STATE, action) => {
       return stateToReturnBasicOrdered
 
     case UPDATE_FSMS_ANON:
-      const stateToReturnAnon ={ anon: state.anon.filter((fsm)=>{
-        return fsm.id !== action.payload.id
+      const stateToReturnAnon ={
+        anon:
+        state.anon.filter((fsm)=>{
+          return fsm.id !== action.payload.id
       })
     }
-      stateToReturnAnon.push(createStateObjectAnon(action.payload))
+      stateToReturnAnon.anon.push(createStateObjectAnon(action.payload))
 
       //order the state
       const stateToReturnAnonOrdered ={

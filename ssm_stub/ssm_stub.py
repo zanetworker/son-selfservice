@@ -57,11 +57,22 @@ class Server:
                   "name": "basic start",
                   "data":
                   [
-                      {"name": "Firewall", "fsmId": "1", "state": "stopped"},
-                      {"name": "VPN", "fsmId": "2", "state": "started"},
-                      {"name": "TOR", "fsmId": "3", "state": "started"},
-                      {"name": "HTTP Proxy", "fsmId": "4", "state": "started"},
-                      {"name": "IDS", "fsmId": "5", "state": "stopped"}
+                      {"name": "Firewall", "id": "1", "state": "started"},
+                      {"name": "VPN", "id": "2", "state": "started"}
+                  ],
+                  }
+
+            if actionName == "anon start":
+              print actionName
+              toSend  = {
+                  "name": "anon start",
+                  "data":
+                  [
+                    {"name": "Firewall", "id": "1", "state": "started"},
+                    {"name": "VPN", "id": "2", "state": "started"},
+                    {"name": "TOR", "id": "3", "state": "started"},
+                    {"name": "HTTP Proxy", "id": "4", "state": "started"},
+                    {"name": "IDS", "id": "5", "state": "started"}
                   ],
                   }
             try:

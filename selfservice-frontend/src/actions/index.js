@@ -77,24 +77,31 @@ export const updateFsmBasic = (fsmToUpdate) => {
  };
 }
 
-export const updateFsmAnon = (fsmToUpdate) => {
-console.log("Updating Anon:" , fsmToUpdate)
+export const updateServiceAnon = (serviceToUpdate) => {
+console.log("Updating Anon Service State:" , serviceToUpdate)
  return (dispatch) => {
-   console.log(fsmToUpdate)
+   console.log(serviceToUpdate)
    dispatch({
       type: UPDATE_FSMS_ANON,
-      payload: fsmToUpdate
+      payload: serviceToUpdate
     })
  };
 }
 
+export const updateServiceBasic = (serviceToUpdate) => {
+console.log("Updating Basic Service State:" , serviceToUpdate)
+ return (dispatch) => {
+   dispatch({
+      type: UPDATE_FSMS_BASIC,
+      payload: serviceToUpdate
+    })
+ };
+}
 
 export const doServiceStart = (socket, serviceType) => {
-  console.log("hello: " + serviceType)
   console.log("Starting service: " + serviceType + "...!")
   return (dispatch) => {
     let msg = null;
-    console.log("stuff")
     if (serviceType === "basic"){
       msg = {
         name: 'basic start',

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 import {connect} from 'react-redux';
 import {doServiceStart, doFSMStart, doFSMStop,  updateFsmBasic, updateModalBasic,
-        updateModalAnon, updateLoading} from '../../actions'
+        updateModalAnon, updateLoading, updateServiceBasic, updateServiceAnon} from '../../actions'
 
 
 import Modal from 'react-modal'
@@ -62,12 +62,18 @@ class UserService extends Component {
     });
   }
 
-  onServiceBasicStarted = () => {
-
+  onServiceBasicStarted = (serviceData) => {
+    const {updateServiceBasicAction} = this.props;
+    for (var service of serviceData){
+        updateServiceBasicAction(service);
+    }
   }
 
-  onServiceAnonStarted = () => {
-
+  onServiceAnonStarted = (serviceData) => {
+    const {updateServiceAnonAction} = this.props;
+    for (var service of serviceData){
+        updateServiceAnonAction(service);
+    }
   }
 
   onFSMStarted = (fsmData) => {
@@ -325,7 +331,9 @@ const mapDispatchToProps = (dispatch) => ({
   updateFSMBasicAction: (fsmToUpdate) => dispatch(updateFsmBasic(fsmToUpdate)),
   updateModalViewBasic: (state, type) => dispatch(updateModalBasic(state)),
   updateModalViewAnon: (state, type) => dispatch(updateModalAnon(state)),
-  updateLoadingState: (state) => dispatch(updateLoading(state))
+  updateLoadingState: (state) => dispatch(updateLoading(state)),
+  updateServiceBasicAction: (serviceToUpdate) => dispatch(updateServiceBasic(serviceToUpdate)),
+  updateServiceAnonAction: (serviceToUpdate) => dispatch(updateServiceAnon(serviceToUpdate))
 })
 
 const mapStateToProps = (state) => ({
