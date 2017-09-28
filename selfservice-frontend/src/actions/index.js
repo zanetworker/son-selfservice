@@ -1,7 +1,10 @@
 // import { browserHistory } from 'react-router';
 // import {socket} from '../containers/SSMControl'
 export const ITEMS_FETCH_FSMS = 'ITEMS_FETCH_FSMS'
-export const UPDATE_FSMS = 'UPDATE_FSMS'
+export const UPDATE_FSMS_BASIC= 'UPDATE_FSMS_BASIC'
+export const UPDATE_FSMS_ANON= 'UPDATE_FSMS_ANON'
+export const UPDATE_MODAL = 'UPDATE_MODAL'
+export const UPDATE_LOADING = 'UPDATE_LOADING'
 // export const itemsFetchData = (url) => {
 //
 //   return (dispatch) => {
@@ -22,18 +25,97 @@ export const UPDATE_FSMS = 'UPDATE_FSMS'
 //   };
 // }
 
+export const updateLoading= (state) => {
+  console.log("Loading State: " + state)
+  return (dispatch) =>{
+  let msg = {
+       type: UPDATE_LOADING,
+       payload: state
+  }
+  dispatch(msg)
+  };
+}
 
-export const updateFsm = (fsmToUpdate) => {
-  console.log("Updating:" , fsmToUpdate)
+
+export const updateModalBasic= (state) => {
+  console.log("[actions] updateModalBasic")
+  return (dispatch) =>{
+        let msgBasic = {
+           type: UPDATE_MODAL,
+           payload: {
+             state: state,
+             type: "basic"
+           }
+         }
+        dispatch(msgBasic)
+}
+}
+
+export const updateModalAnon = (state) => {
+  console.log("[actions] updateModalAnon")
+  return (dispatch) => {
+        let msgAnon = {
+           type: UPDATE_MODAL,
+           payload: {
+             state: state,
+             type: "anon"
+           }
+          }
+       dispatch(msgAnon)
+    }
+  }
+
+
+export const updateFsmBasic = (fsmToUpdate) => {
+  console.log("Updating Basic:" , fsmToUpdate)
  return (dispatch) => {
    console.log(fsmToUpdate)
    dispatch({
-      type: UPDATE_FSMS,
+      type: UPDATE_FSMS_BASIC,
       payload: fsmToUpdate
     })
- }
+ };
 }
+
+export const updateFsmAnon = (fsmToUpdate) => {
+console.log("Updating Anon:" , fsmToUpdate)
+ return (dispatch) => {
+   console.log(fsmToUpdate)
+   dispatch({
+      type: UPDATE_FSMS_ANON,
+      payload: fsmToUpdate
+    })
+ };
+}
+
+
+export const doServiceStart = (socket, serviceType) => {
+  console.log("hello: " + serviceType)
+  console.log("Starting service: " + serviceType + "...!")
+  return (dispatch) => {
+    let msg = null;
+    console.log("stuff")
+    if (serviceType === "basic"){
+      msg = {
+        name: 'basic start',
+        data: ""
+      }
+    }
+
+    if (serviceType === "anon"){
+        msg = {
+        name: 'anon start',
+        data: ""
+      }
+    }
+    socket.emit(msg)
+
+  };
+}
+
+
 export const doFSMStart = (socket, fsmToStart, fsmID) => {
+  console.log("Starting FSM...!")
   return (dispatch) => {
     let msg = {
       name: 'fsm start',
@@ -51,6 +133,8 @@ export const doFSMStart = (socket, fsmToStart, fsmID) => {
     //   .catch(()=> console.log("failed"))
   };
 }
+
+
 export const doFSMStop = (socket, fsmToStop, fsmID) => {
   return (dispatch) => {
     let msg = {

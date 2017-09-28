@@ -42,7 +42,7 @@ services:
     container_name: selfservice-ssm
     build: ssm_stub/.
     ports:
-     - "1234:1234"
+     - "9191:9191"
     networks:
       sonselfservice:
         ipv4_address: 10.5.0.5

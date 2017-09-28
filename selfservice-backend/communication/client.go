@@ -40,8 +40,7 @@ func (client *Client) Read() {
 			log.Error(err.Error())
 			break
 		}
-		log.Info("Action Message")
-		log.Infof("%#v\n", actionMessage)
+		log.Infof("Action Message: %#v\n", actionMessage)
 		command := actionMessage.Name
 		if handler, found := client.findHandler(command); found {
 			handler(client, actionMessage.Data)
@@ -70,15 +69,15 @@ func (client *Client) SubscribeToUpdates() {
 		}
 		// states := []string{"started", "stopped"}
 		// access := rand.Intn(len(states))
-		messageToSend := models.Message{
-			Name: "fsm update",
-			Data: models.FSMStatusUpdate{
-				FsmID:   newFSMValue.FsmID,
-				FsmName: newFSMValue.Name,
-				State:   newFSMValue.State,
-			},
-		}
-		client.Send <- messageToSend
+		// messageToSend := models.Message{
+		// 	Name: "fsm update",
+		// 	Data: models.FSMStatusUpdate{
+		// 		FsmID:   newFSMValue.FsmID,
+		// 		FsmName: newFSMValue.Name,
+		// 		State:   newFSMValue.State,
+		// 	},
+		// }
+		// client.Send <- messageToSend
 	}
 
 }

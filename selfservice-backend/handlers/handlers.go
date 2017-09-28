@@ -13,6 +13,54 @@ import (
 	"github.com/zanetworker/son-selfservice/selfservice-backend/models"
 )
 
+var (
+	//URL used for connecting to ssm
+	URL = url.URL{Scheme: "ws", Host: "localhost:9191", Path: "/echo"}
+)
+
+//StartServiceBasic command to send the SSM for starting the basic tier service
+func StartServiceBasic(client *communication.Client, serviceInputData interface{}) {
+	log.Infof("Starting Service Basic: %#v\n", serviceInputData)
+
+	var serviceRequest models.Message
+	var serviceReply models.Message
+
+	serviceRequest.Name = "basic start"
+	serviceReply.Data = ""
+
+	//Initiate the websocket connection
+	//u := url.URL{Scheme: "ws", Host: "selfservice-ssm:9191", Path: "/echo"}
+	// u := url.URL{Scheme: "ws", Host: "localhost:9191", Path: "/echo"}
+
+	c, _, err := websocket.DefaultDialer.Dial(URL.String(), nil)
+	if err != nil {
+		log.Error("Failed to Connect to SSM!")
+	}
+	defer c.Close()
+
+	err = c.WriteJSON(serviceRequest)
+	if err != nil {
+		log.Println("write:", err)
+		return
+	}
+
+	log.Info("Reading Reply...!")
+	err = c.ReadJSON(&serviceReply)
+	if err != nil {
+		log.Println("Read:", err)
+		return
+	}
+
+	log.Info(serviceReply)
+	client.Send <- serviceReply
+	log.Info("Started FSM")
+}
+
+//StartServiceAnon command to send the SSM for starting the Anon tier service
+func StartServiceAnon(client *communication.Client, serviceInputData interface{}) {
+	log.Infof("Starting Service Anon: %#v\n", serviceInputData)
+}
+
 //StartFSM command to send the SSM to start a specific FSM
 func StartFSM(client *communication.Client, fsmInputData interface{}) {
 	var fsmData models.FSMAction
@@ -27,8 +75,10 @@ func StartFSM(client *communication.Client, fsmInputData interface{}) {
 	fsmDataRequest.Data = fsmData
 
 	//Initiate the websocket connection
-	u := url.URL{Scheme: "ws", Host: "selfservice-ssm:1234", Path: "/echo"}
-	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
+	//u := url.URL{Scheme: "ws", Host: "selfservice-ssm:9191", Path: "/echo"}
+	// u := url.URL{Scheme: "ws", Host: "localhost:9191", Path: "/echo"}
+
+	c, _, err := websocket.DefaultDialer.Dial(URL.String(), nil)
 	if err != nil {
 		log.Error("Failed to Connect to SSM!")
 	}
@@ -66,8 +116,8 @@ func StopFSM(client *communication.Client, fsmInputData interface{}) {
 	fsmDataRequest.Data = fsmData
 
 	//Initiate the websocket connection
-	u := url.URL{Scheme: "ws", Host: "selfservice-ssm:1234", Path: "/echo"}
-	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
+	// u := url.URL{Scheme: "ws", Host: "selfservice-ssm:1234", Path: "/echo"}
+	c, _, err := websocket.DefaultDialer.Dial(URL.String(), nil)
 	if err != nil {
 		log.Error("Failded to Connect to SSM!")
 	}

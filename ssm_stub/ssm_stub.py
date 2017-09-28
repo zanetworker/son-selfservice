@@ -25,28 +25,45 @@ class Server:
         # Format message
         messageDict = loads(message)
         actionName = messageDict['name']
-        fsmName = messageDict['Data']['name']
-        fsmID = messageDict['Data']['id']
+
 
         #TODO relay request on queue and wait for response
-        print(fsmName + fsmID)
         def sendMessage():
             print("Sending Message")
             toSend = None
             if actionName == "fsm start":
+                fsmName = messageDict['Data']['name']
+                fsmID = messageDict['Data']['id']
                 toSend  = {"name": actionName, "Data": {
                     "name": fsmName,
                     "id": fsmID,
                     "state": "started"
                     }
                 }
-            else:
+
+            if actionName == "fsm stop":
+                fsmName = messageDict['Data']['name']
+                fsmID = messageDict['Data']['id']
                 toSend  = {"name": actionName, "Data": {
                     "name": fsmName,
                     "id": fsmID,
                     "state": "stopped"
                     }
                 }
+
+            if actionName == "basic start":
+              print actionName
+              toSend  = {
+                  "name": "basic start",
+                  "data":
+                  [
+                      {"name": "Firewall", "fsmId": "1", "state": "stopped"},
+                      {"name": "VPN", "fsmId": "2", "state": "started"},
+                      {"name": "TOR", "fsmId": "3", "state": "started"},
+                      {"name": "HTTP Proxy", "fsmId": "4", "state": "started"},
+                      {"name": "IDS", "fsmId": "5", "state": "stopped"}
+                  ],
+                  }
             try:
                 toSendJson = dumps(toSend)
                 print toSendJson
@@ -58,7 +75,8 @@ class Server:
 
 
     def listenToFSMRequests(self):
-        PORT=1234
+        print "Listening to Requests...!"
+        PORT=9191
         server = WebsocketServer(PORT)
         server.set_fn_new_client(self.new_client)
         server.set_fn_client_left(self.client_left)
@@ -93,7 +111,8 @@ class Client:
 
     def advertiseFSMs(self):
         websocket.enableTrace(True)
-        ws = websocket.WebSocketApp("ws://selfservice-backend:4000/ws",
+        selfservice_backend = "localhost"
+        ws = websocket.WebSocketApp("ws://"+selfservice_backend+":4000/ws",
                                   on_message = self.on_message,
                                   on_error = self.on_error,
                                   on_close = self.on_close)

@@ -12,6 +12,12 @@ type ReplyMessage struct {
 	Data interface{} `json:"Data"` //Info about the FSM
 }
 
+//ServiceAction is the message received to do the action
+type ServiceAction struct {
+	Name string      `json:"name"`
+	Data interface{} `json:"Data"`
+}
+
 //FSMAction Information about FSM to start/stop/configure
 type FSMAction struct {
 	ID   string `json:"id"`

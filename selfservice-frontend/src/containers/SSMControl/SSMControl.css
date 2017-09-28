@@ -1,8 +1,0 @@
-.buttons-sep{
-  display: flex;
-  border-radius: 5cm;
-}
-
-span + span {
-    margin-left: 10px;
-}
