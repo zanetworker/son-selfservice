@@ -88,7 +88,7 @@ class Server:
     def listenToFSMRequests(self):
         print "Listening to Requests...!"
         port=9191
-        host="selfservice-backend"
+        host="selfservice-ssm"
         server = WebsocketServer(port, host=host)
         server.set_fn_new_client(self.new_client)
         server.set_fn_client_left(self.client_left)
