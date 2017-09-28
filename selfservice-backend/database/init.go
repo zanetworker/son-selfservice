@@ -41,8 +41,8 @@ func NewDB() *Database {
 	//dbURL := configuration.AppConfig.DBHostIP + ":" + configuration.AppConfig.DBHostPort
 	session, err := r.Connect(r.ConnectOpts{
 		//TODO fetch from Config File
-		//Address:  "selfservice-db:28015",
-		Address:  "localhost:28015",
+		Address: "selfservice-db:28015",
+		//Address:  "localhost:28015",
 		Database: "fsms",
 	})
 	if err != nil {

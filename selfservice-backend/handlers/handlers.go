@@ -15,7 +15,8 @@ import (
 
 var (
 	//URL used for connecting to ssm
-	URL = url.URL{Scheme: "ws", Host: "localhost:9191", Path: "/echo"}
+	// URL = url.URL{Scheme: "ws", Host: "localhost:9191", Path: "/echo"}
+	URL = url.URL{Scheme: "ws", Host: "selfservice-ssm:9191", Path: "/echo"}
 )
 
 //StartServiceBasic command to send the SSM for starting the basic tier service

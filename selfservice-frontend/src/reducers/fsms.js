@@ -36,13 +36,7 @@ export default (state = INIT_STATE, action) => {
         basic: stateToReturnBasic.basic.sort(function(a, b){
           return a.id-b.id
         }),
-        anon:[
-          {name: "Firewall",      "id": "1", state: "stopped"},
-          {"name": "VPN",         "id": "2", "state": "stopped"},
-          {"name": "TOR",         "id": "3", "state": "stopped"},
-          {"name": "HTTP Proxy",  "id": "4", "state": "stopped"},
-          {"name": "IDS",         "id": "5", "state": "stopped"}
-        ]
+        anon: INIT_STATE.anon
         }
       return stateToReturnBasicOrdered
 
@@ -59,7 +53,8 @@ export default (state = INIT_STATE, action) => {
       const stateToReturnAnonOrdered ={
         anon: stateToReturnAnon.anon.sort(function(a, b){
             return a.id-b.id
-            })
+          }),
+          basic: INIT_STATE.basic
       }
       return stateToReturnAnonOrdered
 
