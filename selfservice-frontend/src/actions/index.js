@@ -65,7 +65,6 @@ export const updateModalAnon = (state) => {
     }
   }
 
-
 export const updateFsmBasic = (fsmToUpdate) => {
   console.log("Updating Basic:" , fsmToUpdate)
  return (dispatch) => {
@@ -112,6 +111,28 @@ export const doServiceStart = (socket, serviceType) => {
     if (serviceType === "anon"){
         msg = {
         name: 'anon start',
+        data: ""
+      }
+    }
+    socket.emit(msg)
+
+  };
+}
+
+export const doServiceStop = (socket, serviceType) => {
+  console.log("Stopping service: " + serviceType + "...!")
+  return (dispatch) => {
+    let msg = null;
+    if (serviceType === "basic"){
+      msg = {
+        name: 'basic stop',
+        data: ""
+      }
+    }
+
+    if (serviceType === "anon"){
+        msg = {
+        name: 'anon stop',
         data: ""
       }
     }

@@ -62,19 +62,46 @@ class Server:
                   ],
                   }
 
-            if actionName == "anon start":
+            if actionName == "basic stop":
               print actionName
               toSend  = {
-                  "name": "anon start",
+                  "name": "basic stop",
                   "data":
                   [
-                    {"name": "Firewall", "id": "1", "state": "started"},
-                    {"name": "VPN", "id": "2", "state": "started"},
-                    {"name": "TOR", "id": "3", "state": "started"},
-                    {"name": "HTTP Proxy", "id": "4", "state": "started"},
-                    {"name": "IDS", "id": "5", "state": "started"}
+                      {"name": "Firewall", "id": "1", "state": "stopped"},
+                      {"name": "VPN", "id": "2", "state": "stopped"}
                   ],
                   }
+
+
+            if actionName == "anon start":
+                print actionName
+                toSend  = {
+                    "name": "anon start",
+                    "data":
+                    [
+                      {"name": "Firewall", "id": "1", "state": "started"},
+                      {"name": "VPN", "id": "2", "state": "started"},
+                      {"name": "TOR", "id": "3", "state": "started"},
+                      {"name": "HTTP Proxy", "id": "4", "state": "started"},
+                      {"name": "IDS", "id": "5", "state": "started"}
+                    ],
+                    }
+
+            if actionName == "anon stop":
+              print actionName
+              toSend  = {
+                  "name": "anon stop",
+                  "data":
+                  [
+                    {"name": "Firewall", "id": "1", "state": "stopped"},
+                    {"name": "VPN", "id": "2", "state": "stopped"},
+                    {"name": "TOR", "id": "3", "state": "stopped"},
+                    {"name": "HTTP Proxy", "id": "4", "state": "stopped"},
+                    {"name": "IDS", "id": "5", "state": "stopped"}
+                  ],
+                  }
+
             try:
                 toSendJson = dumps(toSend)
                 print toSendJson

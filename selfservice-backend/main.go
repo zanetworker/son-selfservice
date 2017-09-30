@@ -20,7 +20,9 @@ func main() {
 	router.Handle("fsm update", handlers.UpdateFSM)
 	router.Handle("fsm stop", handlers.StopFSM)
 	router.Handle("basic start", handlers.StartServiceBasic)
+	router.Handle("basic stop", handlers.StopServiceBasic)
 	router.Handle("anon start", handlers.StartServiceAnon)
+	router.Handle("anon stop", handlers.StopServiceAnon)
 
 	http.Handle("/ws", router)
 	log.Fatal(http.ListenAndServe(":4000", nil))

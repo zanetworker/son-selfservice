@@ -57,6 +57,44 @@ func StartServiceBasic(client *communication.Client, serviceInputData interface{
 	log.Info("Started Service")
 }
 
+//StopServiceBasic command to send the SSM for starting the basic tier service
+func StopServiceBasic(client *communication.Client, serviceInputData interface{}) {
+	log.Infof("Starting Service Basic: %#v\n", serviceInputData)
+
+	var serviceRequest models.Message
+	var serviceReply models.Message
+
+	serviceRequest.Name = "basic stop"
+	serviceReply.Data = ""
+
+	//Initiate the websocket connection
+	//u := url.URL{Scheme: "ws", Host: "selfservice-ssm:9191", Path: "/echo"}
+	// u := url.URL{Scheme: "ws", Host: "localhost:9191", Path: "/echo"}
+
+	c, _, err := websocket.DefaultDialer.Dial(URL.String(), nil)
+	if err != nil {
+		log.Error("Failed to Connect to SSM!")
+	}
+	defer c.Close()
+
+	err = c.WriteJSON(serviceRequest)
+	if err != nil {
+		log.Println("write:", err)
+		return
+	}
+
+	log.Info("Reading Reply...!")
+	err = c.ReadJSON(&serviceReply)
+	if err != nil {
+		log.Println("Read:", err)
+		return
+	}
+
+	log.Info(serviceReply)
+	client.Send <- serviceReply
+	log.Info("Started Service")
+}
+
 //StartServiceAnon command to send the SSM for starting the Anon tier service
 func StartServiceAnon(client *communication.Client, serviceInputData interface{}) {
 	log.Infof("Starting Service Anon: %#v\n", serviceInputData)
@@ -65,6 +103,44 @@ func StartServiceAnon(client *communication.Client, serviceInputData interface{}
 	var serviceReply models.Message
 
 	serviceRequest.Name = "anon start"
+	serviceReply.Data = ""
+
+	//Initiate the websocket connection
+	//u := url.URL{Scheme: "ws", Host: "selfservice-ssm:9191", Path: "/echo"}
+	// u := url.URL{Scheme: "ws", Host: "localhost:9191", Path: "/echo"}
+
+	c, _, err := websocket.DefaultDialer.Dial(URL.String(), nil)
+	if err != nil {
+		log.Error("Failed to Connect to SSM!")
+	}
+	defer c.Close()
+
+	err = c.WriteJSON(serviceRequest)
+	if err != nil {
+		log.Println("write:", err)
+		return
+	}
+
+	log.Info("Reading Reply...!")
+	err = c.ReadJSON(&serviceReply)
+	if err != nil {
+		log.Println("Read:", err)
+		return
+	}
+
+	log.Info(serviceReply)
+	client.Send <- serviceReply
+	log.Info("Started Service")
+}
+
+//StopServiceAnon command to send the SSM for starting the Anon tier service
+func StopServiceAnon(client *communication.Client, serviceInputData interface{}) {
+	log.Infof("Starting Service Anon: %#v\n", serviceInputData)
+
+	var serviceRequest models.Message
+	var serviceReply models.Message
+
+	serviceRequest.Name = "anon stop"
 	serviceReply.Data = ""
 
 	//Initiate the websocket connection

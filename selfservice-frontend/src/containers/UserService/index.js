@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
 import {connect} from 'react-redux';
-import {doServiceStart, doFSMStart, doFSMStop,  updateFsmBasic, updateModalBasic,
+import {doServiceStart, doServiceStop, doFSMStart, doFSMStop,  updateFsmBasic, updateModalBasic,
         updateModalAnon, updateLoading, updateServiceBasic, updateServiceAnon} from '../../actions'
 
 
@@ -46,6 +46,8 @@ class UserService extends Component {
     socket.on('fsm update', this.onFSMUpdated);
     socket.on('basic start', this.onServiceBasicStarted);
     socket.on('anon start', this.onServiceAnonStarted);
+    socket.on('basic stop', this.onServiceBasicStopped);
+    socket.on('anon stop', this.onServiceAnonStopped);
   }
 
 
@@ -69,12 +71,27 @@ class UserService extends Component {
     }
   }
 
+  onServiceBasicStopped = (serviceData) => {
+    const {updateServiceBasicAction} = this.props;
+    for (var service of serviceData){
+        updateServiceBasicAction(service);
+    }
+  }
+
   onServiceAnonStarted = (serviceData) => {
     const {updateServiceAnonAction} = this.props;
     for (var service of serviceData){
         updateServiceAnonAction(service);
     }
   }
+
+  onServiceAnonStopped = (serviceData) => {
+    const {updateServiceAnonAction} = this.props;
+    for (var service of serviceData){
+        updateServiceAnonAction(service);
+    }
+  }
+
 
   onFSMStarted = (fsmData) => {
     console.log("FSM Started")
@@ -100,6 +117,10 @@ class UserService extends Component {
     doServiceStartAction(socket, serviceName);
   }
 
+  stopService = (socket, serviceName) => {
+    const {doServiceStopAction} = this.props;
+    doServiceStopAction(socket, serviceName);
+  }
 //############# Function Calls ############
  onActionStart = (socket, fsmToStart, fsmID) => {
    const {doFSMStart} = this.props;
@@ -178,10 +199,10 @@ render(){
            <table className="table table-inverse">
            <thead className="thead-inverse">
             <tr>
-              <th>FSM ID</th>
-              <th>FSM Name</th>
-              <th>State</th>
-              <th>Action</th>
+              <th>Function ID</th>
+              <th>Function Name</th>
+              <th>Function State</th>
+              {/*<th>Action</th>*/}
             </tr>
            </thead>
 
@@ -194,6 +215,7 @@ render(){
                   (<img className="img-running" src="https://d30y9cdsu7xlg0.cloudfront.net/png/22889-200.png" alt=""/>)
                 : (<img className="img-running" src="https://image.flaticon.com/icons/png/512/30/30473.png" alt=""/>)
               }</td>
+              {/*
                   <td className="buttons-sep insert-margin">
                   {
                     fsm.state ===  "started" ? (
@@ -208,6 +230,7 @@ render(){
                     <button  type="button" className="btn btn-danger" onClick={() => this.onActionStop(socket, fsm.name, fsm.id)}>Stop</button>
                    )}
                    </td>
+                   */}
                 </tr>
             )}
            </tbody>
@@ -215,6 +238,7 @@ render(){
 
           <div className="button-modal-div">
            <button onClick={()=>this.startService(socket, BASIC)} className="btn btn-success  btn-modal d-flex justify-content-center">Start</button>
+           <button onClick={()=>this.stopService(socket, BASIC)} className="btn btn-danger  btn-modal d-flex justify-content-center">Stop</button>
            <button onClick={()=> this.closeModalBasic()} className="btn btn-primary  btn-modal d-flex justify-content-center">close</button>
           </div>
         </div>
@@ -239,10 +263,10 @@ render(){
            <table className="table table-inverse">
            <thead className="thead-inverse">
             <tr>
-              <th>FSM ID</th>
-              <th>FSM Name</th>
-              <th>State</th>
-              <th>Action</th>
+            <th>Function ID</th>
+            <th>Function Name</th>
+            <th>Function State</th>
+              {/*<th>Action</th>*/}
             </tr>
            </thead>
 
@@ -255,6 +279,7 @@ render(){
                   (<img className="img-running" src="https://d30y9cdsu7xlg0.cloudfront.net/png/22889-200.png" alt=""/>)
                 : (<img className="img-running" src="https://image.flaticon.com/icons/png/512/30/30473.png" alt=""/>)
               }</td>
+              {/*}
                   <td className="buttons-sep insert-margin">
                   {
                     fsm.state ===  "started" ? (
@@ -270,11 +295,13 @@ render(){
                     <button  type="button" className="btn btn-danger" onClick={() => this.onActionStop(socket, fsm.name, fsm.id)}>Stop</button>
                    )}
                    </td>
+                 */}
                 </tr>
             )}
            </tbody>
            </table>
            <button onClick={()=>this.startService(socket, ANON)} className="btn btn-success  btn-modal d-flex justify-content-center">Start</button>
+          <button onClick={()=>this.stopService(socket, ANON)} className="btn btn-danger  btn-modal d-flex justify-content-center">Stop</button>
            <button onClick={()=>this.closeModalAnon()} className="btn btn-primary  btn-modal d-flex justify-content-center">close</button>
         </div>
         )}
@@ -301,20 +328,6 @@ render(){
                     <h3 className="display-3">Anonymous Routing Service</h3>
                 </figcaption>
               </figure>
-
-              <figure className="item">
-                <div className="img-wrap"><img src="http://www.ptaglobal.co.uk/images/advanced_home_icon.png" alt=""/></div>
-                <figcaption className="caption">
-                    <h3>Advanced Services</h3>
-                </figcaption>
-              </figure>
-
-              <figure className="item">
-                <div className="img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Anonymous_emblem.svg/1200px-Anonymous_emblem.svg.png" alt="" /></div>
-                <figcaption className="caption">
-                    <h3 className="display-3">Anonymous Routing Service</h3>
-                </figcaption>
-              </figure>
             </div>
         </div>
         </div>
@@ -326,6 +339,7 @@ render(){
 // const mapPropsToSto
 const mapDispatchToProps = (dispatch) => ({
   doServiceStartAction: (socket, serviceName) => dispatch(doServiceStart(socket, serviceName)),
+  doServiceStopAction: (socket, serviceName) => dispatch(doServiceStop(socket, serviceName)),
   doFSMStart:(socket, fsmToStart, fsmID)=> dispatch(doFSMStart(socket, fsmToStart, fsmID)),
   doFSMStop:(socket, fsmToStop, fsmID)=> dispatch(doFSMStop(socket, fsmToStop, fsmID)),
   updateFSMBasicAction: (fsmToUpdate) => dispatch(updateFsmBasic(fsmToUpdate)),
